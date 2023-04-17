@@ -1,0 +1,23 @@
+body {
+	margin: 0;
+	overflow: hidden;
+	height: 100vh;
+}
+
+.canvas__wrapper {
+	display: flex;
+	flex-direction: row-reverse;
+	justify-content: center;
+	align-items: center;
+	height: 100%;
+	width: 100%;
+	background-color: #4e7192;
+}
+
+.canvas__buttons {
+	display: flex;
+	flex-direction: column;
+	height: 700px;
+	width: 400px;
+	padding-left: 50px;
+}
