@@ -4,7 +4,7 @@ export const changeColor = (mesh, label = 'Mesh', color = '#e66465') => {
   const fragment = document.createRange().createContextualFragment(
     ` 
     <div class="canvas__button">
-      <label for="head">${label} Color</label>
+      <label for="head">${label} Color: </label>
       <input type="color" id="head" name="head" value=${color}>
     </div>
     `
