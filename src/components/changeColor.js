@@ -1,19 +1,19 @@
 import * as THREE from 'three'
 
-export const changeColor = (mesh, label = 'Mesh', color = '#e66465') => {
+export const changeColor = (mesh) => {
+  console.log(mesh);
+
   const fragment = document.createRange().createContextualFragment(
     ` 
     <div class="canvas__button">
-      <label for="head">${label} Color: </label>
-      <input type="color" id="head" name="head" value=${color}>
+      <label for=${mesh.name}>${mesh.name} Color: </label>
+      <input type="color" id=${mesh.name}" name=${mesh.name} value=${'#'+mesh?.material.color.getHexString()}>
     </div>
     `
   );
 
   const changeColor = (event) => {
-    console.log(event.target.value);
     const meshColor = new THREE.Color(event.target.value);
-    console.log(meshColor);
     mesh?.material?.color.set(meshColor);
   };
 
