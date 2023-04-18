@@ -61,6 +61,7 @@ body {
   border-style: none;
   border-radius: 5px;
   font-size: 40px;
+  background-color: #368F8B;
 }
 .canvas__swapControls button i {
   display: block;

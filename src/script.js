@@ -5,7 +5,8 @@ import * as dat from 'dat.gui'
 
 import { changeColor } from './components/changeColor'
 import { changeAvatar } from './components/changeAvatar'
-import map from './data/map'
+import createMap from './data/map'
+import createAvatars from './data/avatars'
 
 // GUI
 const gui = new dat.GUI({ width: 340 });
@@ -31,68 +32,20 @@ lightsFolder.add(light, 'intensity', 0, 10, 0.1);
 // const helper = new THREE.DirectionalLightHelper(directionalLight, 5);
 // scene.add(helper);
 
-map(scene);
+createMap(scene);
 
 // Geometry
-const avatarBody = new THREE.Mesh(
-	new THREE.SphereBufferGeometry(0.8, 16, 12),
-	new THREE.MeshStandardMaterial({ color: '#7CFEFE' })
-);
-avatarBody.name = 'Body';
-avatarBody.castShadow = true;
-avatarBody.receiveShadow = true;
-avatarBody.material.metalness = 0.3;
-avatarBody.material.roughness = 0.3;
+const avatarGroup = new THREE.Group();
+const avatars = createAvatars();
+avatarGroup.add(avatars[0]);
+avatarGroup.name = 'avatars';
+scene.add(avatarGroup);
 
-const avatarHead = new THREE.Mesh(
-	new THREE.SphereBufferGeometry(0.5, 16, 12),
-	new THREE.MeshStandardMaterial({ color: '#FF9090' })
-);
-avatarHead.name = 'Head';
-avatarHead.position.y = 1;
-avatarHead.castShadow = true;
-avatarHead.receiveShadow = true;
-
-const avatar1 = new THREE.Group();
-avatar1.add(avatarBody);
-avatar1.add(avatarHead);
-avatar1.name = 'avatar1';
-
-document.querySelector('.canvas__buttons').append(changeColor(avatarBody, 'Body', '#7CFEFE'));
-document.querySelector('.canvas__buttons').append(changeColor(avatarHead, 'Head', '#FF9090'));
-
-// Avatar 2
-const avatarBody2 = new THREE.Mesh(
-	new THREE.SphereBufferGeometry(0.8, 16, 12),
-	new THREE.MeshStandardMaterial({ color: '#0055FF' })
-);
-avatarBody2.name = 'Body';
-avatarBody2.castShadow = true;
-avatarBody2.receiveShadow = true;
-avatarBody2.material.metalness = 0.3;
-avatarBody2.material.roughness = 0.3;
-    
-const avatarHead2 = new THREE.Mesh(
-	new THREE.SphereBufferGeometry(0.5, 16, 12),
-	new THREE.MeshStandardMaterial({ color: '#FF5555' })
-);
-avatarHead2.name = 'Head';
-avatarHead2.castShadow = true;
-avatarHead2.receiveShadow = true;
-avatarHead2.position.y = 1;
-
-const avatar2 = new THREE.Group();
-avatar2.add(avatarBody2);
-avatar2.add(avatarHead2);
-avatar2.name = 'avatar2';
-
-const avatars = new THREE.Group();
-avatars.add(avatar1);
-avatars.name = 'avatars';
-scene.add(avatars);
+document.querySelector('.canvas__buttons').append(changeColor(avatarGroup.children[0].children[0]));
+document.querySelector('.canvas__buttons').append(changeColor(avatarGroup.children[0].children[1]));
 		
-document.querySelector('.canvas__swap').append(changeAvatar(avatars, [avatar1, avatar2]));
-document.querySelector('.avatar--name').textContent = avatar1.name;
+document.querySelector('.canvas__swap').append(changeAvatar(avatarGroup, avatars));
+document.querySelector('.avatar--name').textContent = avatarGroup.children[0].name;
 
 // Camera
 // const sizes = {
@@ -130,7 +83,6 @@ renderer.setSize(sizes.width, sizes.height);
 renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
 renderer.shadowMap.enabled = true;
 renderer.shadowMap.type = THREE.PCFSoftShadowMap;
-
 
 // Tick
 const clock = new THREE.Clock();
