@@ -8,7 +8,7 @@ export const changeAvatar = (group, avatars) => {
 
       <button><i class="fa fa-angle-left"></i></button>
 
-      <p>Test</p>
+      <p class='avatar--name'>Test</p>
 
       <button><i class="fa fa-angle-right"></i></button>
 
@@ -17,8 +17,8 @@ export const changeAvatar = (group, avatars) => {
   );
 
   const changeAvatar = (event) => {
-    console.log(group);
-    console.log(avatars);
+    // console.log(group);
+    // console.log(avatars);
     let avatar = null;
 
     if(group?.children?.find(avatar => avatar.name === 'avatar1')){
@@ -30,10 +30,11 @@ export const changeAvatar = (group, avatars) => {
       avatar = avatars[0];
     }
     group.add(avatar);
-    console.log(avatar?.children[0]?.material.color.getHexString());
+    console.log(avatar);
     document.querySelector('.canvas__buttons').innerHTML = '';
     document.querySelector('.canvas__buttons').append(changeColor(avatar?.children[0], 'Body', '#'+avatar?.children[0]?.material.color.getHexString()));
     document.querySelector('.canvas__buttons').append(changeColor(avatar?.children[1], 'Head', '#'+avatar?.children[1]?.material.color.getHexString()));
+    document.querySelector('.avatar--name').textContent = avatar.name;
   };
 
   fragment

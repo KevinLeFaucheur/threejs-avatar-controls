@@ -1,4 +1,4 @@
-import './style.css'
+import './css/style.css'
 import * as THREE from 'three'
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls'
 import * as dat from 'dat.gui'
@@ -80,7 +80,6 @@ avatar1.name = 'avatar1';
 document.querySelector('.canvas__buttons').append(changeColor(avatarBody, 'Body', '#7CFEFE'));
 document.querySelector('.canvas__buttons').append(changeColor(avatarHead, 'Head', '#FF9090'));
 
-
 // Avatar 2
 const avatarBody2 = new THREE.Mesh(
 	new THREE.SphereBufferGeometry(0.8, 16, 12),
@@ -112,6 +111,7 @@ avatars.name = 'avatars';
 scene.add(avatars);
 		
 document.querySelector('.canvas__swap').append(changeAvatar(avatars, [avatar1, avatar2]));
+document.querySelector('.avatar--name').textContent = avatar1.name;
 
 // Camera
 // const sizes = {
