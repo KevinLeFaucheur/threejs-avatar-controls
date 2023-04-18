@@ -5,6 +5,7 @@ import * as dat from 'dat.gui'
 
 import { changeColor } from './components/changeColor'
 import { changeAvatar } from './components/changeAvatar'
+import map from './data/map'
 
 // GUI
 const gui = new dat.GUI({ width: 340 });
@@ -22,6 +23,7 @@ directionalLight.position.set(0, 5, 2);
 directionalLight.castShadow = true;
 scene.add(directionalLight);
 
+// Light GUI
 const lightsFolder = gui.addFolder('Lights');
 lightsFolder.add(light, 'intensity', 0, 10, 0.1);
 
@@ -29,28 +31,7 @@ lightsFolder.add(light, 'intensity', 0, 10, 0.1);
 // const helper = new THREE.DirectionalLightHelper(directionalLight, 5);
 // scene.add(helper);
 
-// Grass
-const grass = new THREE.Mesh(
-	new THREE.PlaneBufferGeometry(100, 100, 1, 1),
-	new THREE.MeshStandardMaterial({ color: '#689780' })
-);
-grass.receiveShadow = true;
-grass.rotation.x = -Math.PI / 2;
-grass.position.y = -1;
-scene.add(grass);
-
-// Tree
-const tree = new THREE.Mesh(
-	new THREE.ConeBufferGeometry(5, 15, 8, 16),
-	new THREE.MeshStandardMaterial({ color: '#005500' })
-);
-tree.receiveShadow = true;
-tree.position.set(
-	(Math.random() - 0.5) * 6, 
-	0,
-	(Math.random() - 0.5) * 3 - 10
-);
-scene.add(tree);
+map(scene);
 
 // Geometry
 const avatarBody = new THREE.Mesh(
