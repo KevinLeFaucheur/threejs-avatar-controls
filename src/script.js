@@ -22,6 +22,9 @@ directionalLight.position.set(0, 5, 2);
 directionalLight.castShadow = true;
 scene.add(directionalLight);
 
+const lightsFolder = gui.addFolder('Lights');
+lightsFolder.add(light, 'intensity', 0, 10, 0.1);
+
 // Light Helper
 // const helper = new THREE.DirectionalLightHelper(directionalLight, 5);
 // scene.add(helper);
@@ -52,17 +55,19 @@ scene.add(tree);
 // Geometry
 const avatarBody = new THREE.Mesh(
 	new THREE.SphereBufferGeometry(0.8, 16, 12),
-	new THREE.MeshStandardMaterial({ color: '#005555' })
+	new THREE.MeshStandardMaterial({ color: '#7CFEFE' })
 );
+avatarBody.name = 'Body';
 avatarBody.castShadow = true;
 avatarBody.receiveShadow = true;
-avatarBody.material.metalness = 0.9;
-avatarBody.material.roughness = 0.6;
+avatarBody.material.metalness = 0.3;
+avatarBody.material.roughness = 0.3;
 
 const avatarHead = new THREE.Mesh(
 	new THREE.SphereBufferGeometry(0.5, 16, 12),
-	new THREE.MeshStandardMaterial({ color: '#FE9090' })
+	new THREE.MeshStandardMaterial({ color: '#FF9090' })
 );
+avatarHead.name = 'Head';
 avatarHead.position.y = 1;
 avatarHead.castShadow = true;
 avatarHead.receiveShadow = true;
@@ -72,8 +77,8 @@ avatar1.add(avatarBody);
 avatar1.add(avatarHead);
 avatar1.name = 'avatar1';
 
-document.querySelector('.canvas__buttons').append(changeColor(avatarBody, 'Body', '#005555'));
-document.querySelector('.canvas__buttons').append(changeColor(avatarHead, 'Head', '#FE9090'));
+document.querySelector('.canvas__buttons').append(changeColor(avatarBody, 'Body', '#7CFEFE'));
+document.querySelector('.canvas__buttons').append(changeColor(avatarHead, 'Head', '#FF9090'));
 
 
 // Avatar 2
@@ -81,19 +86,19 @@ const avatarBody2 = new THREE.Mesh(
 	new THREE.SphereBufferGeometry(0.8, 16, 12),
 	new THREE.MeshStandardMaterial({ color: '#0055FF' })
 );
+avatarBody2.name = 'Body';
 avatarBody2.castShadow = true;
 avatarBody2.receiveShadow = true;
-avatarBody2.material.metalness = 0.9;
-avatarBody2.material.roughness = 0.9;
+avatarBody2.material.metalness = 0.3;
+avatarBody2.material.roughness = 0.3;
     
 const avatarHead2 = new THREE.Mesh(
 	new THREE.SphereBufferGeometry(0.5, 16, 12),
-	new THREE.MeshStandardMaterial({ color: '#FF0011' })
+	new THREE.MeshStandardMaterial({ color: '#FF5555' })
 );
+avatarHead2.name = 'Head';
 avatarHead2.castShadow = true;
 avatarHead2.receiveShadow = true;
-avatarHead2.material.metalness = 0.9;
-avatarHead2.material.roughness = 0.9;
 avatarHead2.position.y = 1;
 
 const avatar2 = new THREE.Group();
@@ -120,7 +125,7 @@ const sizes = {
 
 window.addEventListener('resize', () =>{
 	sizes.width = 500;
-	sizes.height = 700;;
+	sizes.height = 700;
 
 	camera.aspect = sizes.width / sizes.height;
 	camera.updateProjectionMatrix();

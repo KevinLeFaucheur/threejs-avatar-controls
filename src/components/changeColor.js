@@ -17,7 +17,7 @@ export const changeColor = (mesh, label = 'Mesh', color = '#e66465') => {
     mesh?.material?.color.set(meshColor);
   };
 
-  fragment.querySelector('input').onblur = changeColor;
+  fragment.querySelector('input').onchange = changeColor;
 
   return fragment;
 };

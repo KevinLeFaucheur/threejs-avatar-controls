@@ -1,4 +1,5 @@
 import * as THREE from 'three'
+import { changeColor } from './changeColor';
 
 export const changeAvatar = (group, avatars) => {
   const fragment = document.createRange().createContextualFragment(
@@ -17,14 +18,22 @@ export const changeAvatar = (group, avatars) => {
 
   const changeAvatar = (event) => {
     console.log(group);
+    console.log(avatars);
+    let avatar = null;
+
     if(group?.children?.find(avatar => avatar.name === 'avatar1')){
       group.clear();
-      group.add(avatars[1]);
+      avatar = avatars[1];
     } 
     else {
       group.clear();
-      group.add(avatars[0]);
+      avatar = avatars[0];
     }
+    group.add(avatar);
+    console.log(avatar?.children[0]?.material.color.getHexString());
+    document.querySelector('.canvas__buttons').innerHTML = '';
+    document.querySelector('.canvas__buttons').append(changeColor(avatar?.children[0], 'Body', '#'+avatar?.children[0]?.material.color.getHexString()));
+    document.querySelector('.canvas__buttons').append(changeColor(avatar?.children[1], 'Head', '#'+avatar?.children[1]?.material.color.getHexString()));
   };
 
   fragment
