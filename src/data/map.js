@@ -8,7 +8,7 @@ export default (scene) => {
   );
   grass.receiveShadow = true;
   grass.rotation.x = -Math.PI / 2;
-  grass.position.y = -1;
+  // grass.position.y = -1;
   scene.add(grass);
 
   // Tree
@@ -19,7 +19,7 @@ export default (scene) => {
   tree.receiveShadow = true;
   tree.position.set(
     (Math.random() - 0.5) * 6, 
-    0,
+    15 / 2,
     (Math.random() - 0.5) * 3 - 10
   ); 
   scene.add(tree);

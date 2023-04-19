@@ -1,7 +1,7 @@
 import * as THREE from 'three'
 import { changeColor } from './changeColor';
 
-export const changeAvatar = (group, avatars) => {
+export const changeAvatar = (group, avatars, init = false) => {
   const fragment = document.createRange().createContextualFragment(
     ` 
     <div class="canvas__swapControls">
@@ -16,7 +16,7 @@ export const changeAvatar = (group, avatars) => {
     `
   );
 
-  const changeAvatar = (event) => {
+  const loadNewAvatar = (index) => {
     let avatar = null;
 
     if(group?.children?.find(avatar => avatar.name === 'avatar1')){
@@ -29,14 +29,25 @@ export const changeAvatar = (group, avatars) => {
     }
     group.add(avatar);
 
-    document.querySelector('.canvas__buttons').innerHTML = '';
-    avatar.children.forEach(child => document.querySelector('.canvas__buttons').append(changeColor(child)));
+    reloadAvatarUI(avatar);
     document.querySelector('.avatar--name').textContent = avatar.name;
   };
 
+  const reloadAvatarUI = (avatar) => {
+    console.log(avatar);
+    document.querySelector('.canvas__buttons').innerHTML = '';
+    avatar.children.forEach(child => document.querySelector('.canvas__buttons').append(changeColor(child)));
+    // document.querySelector('.canvas__buttons').append(`<>`)
+  }
+
+  if(init) {
+    reloadAvatarUI(avatars[0]);
+    fragment.querySelector('.avatar--name').textContent = avatars[0].name;
+  }
+
   fragment
     .querySelectorAll('button')
-    .forEach(element => element.onclick = changeAvatar);
+    .forEach((element, index) => element.onclick = () => loadNewAvatar(index));
 
   return fragment;
 };
