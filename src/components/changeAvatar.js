@@ -1,5 +1,6 @@
 import * as THREE from 'three'
 import { changeColor } from './changeColor';
+import { addFeatureButton } from './addFeatureButton';
 
 export const changeAvatar = (group, avatars, init = false) => {
   const fragment = document.createRange().createContextualFragment(
@@ -36,8 +37,10 @@ export const changeAvatar = (group, avatars, init = false) => {
   const reloadAvatarUI = (avatar) => {
     console.log(avatar);
     document.querySelector('.canvas__buttons').innerHTML = '';
-    avatar.children.forEach(child => document.querySelector('.canvas__buttons').append(changeColor(child)));
-    // document.querySelector('.canvas__buttons').append(`<>`)
+    avatar.children.forEach(child => {
+      if(child.name === 'Head' || child.name === 'Body') { document.querySelector('.canvas__buttons').append(changeColor(child)) } 
+    });
+    document.querySelector('.canvas__buttons').append(addFeatureButton());
   }
 
   if(init) {

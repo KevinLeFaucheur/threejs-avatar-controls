@@ -21,8 +21,16 @@ const canvas = document.querySelector('.webgl');
 const light = new THREE.AmbientLight(0x505050); // soft white light
 scene.add(light);
 const directionalLight = new THREE.DirectionalLight(0xffffff, 0.5);
-directionalLight.position.set(0, 5, 2);
+directionalLight.position.set(0, 10, 2);
 directionalLight.castShadow = true;
+directionalLight.shadow.camera.left = -50; // default
+directionalLight.shadow.camera.right = 50; // default
+directionalLight.shadow.camera.top = 50; // default
+directionalLight.shadow.camera.bottom = -50; // default
+directionalLight.shadow.camera.near = 0.1; // default
+directionalLight.shadow.camera.far = 50 // default
+directionalLight.shadow.mapSize.width = 512; // default
+directionalLight.shadow.mapSize.height = 512; // default
 scene.add(directionalLight);
 
 // Light GUI
@@ -32,13 +40,18 @@ lightsFolder.add(light, 'intensity', 0, 10, 0.1);
 // Light Helper
 // const helper = new THREE.DirectionalLightHelper(directionalLight, 5);
 // scene.add(helper);
-
+// const cameraHelper = new THREE.CameraHelper(directionalLight.shadow.camera);
+// scene.add(cameraHelper);
 
 // Geometry
 createMap(scene);
 
 const avatarGroup = new THREE.Group();
 const fbxAvatar = new THREE.Group();
+const fbxBase = new THREE.Group();
+const fbxFeatures = new THREE.Group();
+fbxAvatar.add(fbxBase);
+// fbxAvatar.add(fbxFeatures);
 const avatars = createAvatars();
 // avatarGroup.add(avatars[0]);
 avatarGroup.add(fbxAvatar);
@@ -49,17 +62,30 @@ const fbxLoader = new FBXLoader();
 fbxLoader.load(
 	'./models/avatar_01.fbx',
 	(object) => {
-			const children = [...object.children];
-			children.forEach(child => fbxAvatar.add(child));
 
-			console.log(fbxAvatar.children.length);
-			fbxAvatar.children.forEach(mesh => {
-				mesh.material = new THREE.MeshStandardMaterial({ color: '#'+Math.floor(Math.random()*16777215).toString(16) });
-				mesh.material.castShadow = true;
-				mesh.material.receiveShadow = true;
+			const children = [...object.children];
+
+			const configMesh = (group) => {
+				group.children.forEach(mesh => {
+					mesh.material = new THREE.MeshStandardMaterial({ color: '#'+Math.floor(Math.random()*16777215).toString(16) });
+					mesh.castShadow = true;
+					mesh.receiveShadow = true;
+				});
+			}
+
+			children.forEach(child => {
+				if(child.name === 'Body' || child.name === 'Head') {
+					fbxBase.add(child);
+				} else {
+					fbxFeatures.add(child);
+				}
 			});
+			
+			configMesh(fbxBase);
+			configMesh(fbxFeatures);
+
 			fbxAvatar.name = 'FBX AVATAR';
-			document.querySelector('.canvas__swap').append(changeAvatar(avatarGroup, [fbxAvatar]/*avatars*/, true));
+			document.querySelector('.canvas__swap').append(changeAvatar(avatarGroup, [fbxBase]/*avatars*/, true));
 			scene.add(fbxAvatar);
 	},
 	(xhr) => {
@@ -91,7 +117,7 @@ window.addEventListener('resize', () =>{
 	renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
 })
 
-const camera = new THREE.PerspectiveCamera(75, sizes.width / sizes.height, 0.1, 100);
+const camera = new THREE.PerspectiveCamera(75, sizes.width / sizes.height, 0.1, 1000);
 camera.rotation.x = Math.PI / 4;
 camera.position.y = 5;
 camera.position.z = 5;
