@@ -12,7 +12,7 @@ body {
 .canvas {
   display: flex;
   justify-content: center;
-  margin-top: 100px;
+  margin-top: 100px !important;
 
   &__wrapper {
     display: flex;
@@ -72,7 +72,7 @@ body {
     padding: 10px 25px;
     border-radius: 5px;
     font-weight: 500;
-    background: linear-gradient(to bottom, $color-secondary, rgba(0, 255, 255, 0.3));
+    background: linear-gradient(to bottom, $color-secondary, $color-tertiary);
 
     button {
       height: 50px;

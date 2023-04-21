@@ -1,17 +1,18 @@
 import * as THREE from 'three'
 import { changeColor } from './changeColor';
 import { addFeatureButton } from './addFeatureButton';
+import { toggleFeature } from './toggleFeature';
 
-export const changeAvatar = (group, avatars, init = false) => {
+export const changeAvatar = (group, avatar, init = false) => {
   const fragment = document.createRange().createContextualFragment(
     ` 
     <div class="canvas__swapControls">
 
-      <button><i class="fa fa-angle-left"></i></button>
+      <button class="fa fa-angle-left"></button>
 
       <p class='avatar--name'>Test</p>
 
-      <button><i class="fa fa-angle-right"></i></button>
+      <button class="fa fa-angle-right"></button>
 
     </div>
     `
@@ -22,11 +23,11 @@ export const changeAvatar = (group, avatars, init = false) => {
 
     if(group?.children?.find(avatar => avatar.name === 'avatar1')){
       group.clear();
-      avatar = avatars[1];
+      avatar = avatar[1];
     } 
     else {
       group.clear();
-      avatar = avatars[0];
+      avatar = avatar[0];
     }
     group.add(avatar);
 
@@ -35,17 +36,25 @@ export const changeAvatar = (group, avatars, init = false) => {
   };
 
   const reloadAvatarUI = (avatar) => {
-    console.log(avatar);
-    document.querySelector('.canvas__buttons').innerHTML = '';
-    avatar.children.forEach(child => {
-      if(child.name === 'Head' || child.name === 'Body') { document.querySelector('.canvas__buttons').append(changeColor(child)) } 
+    document.querySelector('.canvas__buttons--avatar').innerHTML = '';
+    document.querySelector('.canvas__buttons--features').innerHTML = '';
+
+    avatar.children.forEach(group => {
+      if(group.name === 'AVATAR') {
+        group.children.forEach(mesh => {
+          document.querySelector('.canvas__buttons--avatar').append(changeColor(mesh));
+        });
+      }
+      if(group.name === 'FEATURES') {
+        document.querySelector('.canvas__buttons--add').append(addFeatureButton(group));
+      }
     });
-    document.querySelector('.canvas__buttons').append(addFeatureButton());
   }
 
   if(init) {
-    reloadAvatarUI(avatars[0]);
-    fragment.querySelector('.avatar--name').textContent = avatars[0].name;
+    console.log(avatar);
+    reloadAvatarUI(avatar);
+    fragment.querySelector('.avatar--name').textContent = avatar.name;
   }
 
   fragment

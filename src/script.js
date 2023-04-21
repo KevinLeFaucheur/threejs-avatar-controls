@@ -47,14 +47,7 @@ lightsFolder.add(light, 'intensity', 0, 10, 0.1);
 createMap(scene);
 
 const avatarGroup = new THREE.Group();
-const fbxAvatar = new THREE.Group();
-const fbxBase = new THREE.Group();
-const fbxFeatures = new THREE.Group();
-fbxAvatar.add(fbxBase);
-// fbxAvatar.add(fbxFeatures);
 const avatars = createAvatars();
-// avatarGroup.add(avatars[0]);
-avatarGroup.add(fbxAvatar);
 avatarGroup.name = 'avatars';
 scene.add(avatarGroup);
 
@@ -63,30 +56,28 @@ fbxLoader.load(
 	'./models/avatar_01.fbx',
 	(object) => {
 
-			const children = [...object.children];
+		const avatar = object;
+		avatar.name = 'JOHN';
 
-			const configMesh = (group) => {
+		console.log(avatar);
+		
+		const configMesh = (avatar) => {
+			avatar.children.forEach(group => {
 				group.children.forEach(mesh => {
 					mesh.material = new THREE.MeshStandardMaterial({ color: '#'+Math.floor(Math.random()*16777215).toString(16) });
 					mesh.castShadow = true;
 					mesh.receiveShadow = true;
+
+					if(group.name === 'FEATURES') mesh.visible = false;
 				});
-			}
-
-			children.forEach(child => {
-				if(child.name === 'Body' || child.name === 'Head') {
-					fbxBase.add(child);
-				} else {
-					fbxFeatures.add(child);
-				}
 			});
-			
-			configMesh(fbxBase);
-			configMesh(fbxFeatures);
+		};
+		
+		configMesh(avatar);
 
-			fbxAvatar.name = 'FBX AVATAR';
-			document.querySelector('.canvas__swap').append(changeAvatar(avatarGroup, [fbxBase]/*avatars*/, true));
-			scene.add(fbxAvatar);
+		document.querySelector('.canvas__swap').append(changeAvatar(avatarGroup, avatar, true));
+
+		scene.add(avatar);
 	},
 	(xhr) => {
 			console.log((xhr.loaded / xhr.total) * 100 + '% loaded');
@@ -95,6 +86,21 @@ fbxLoader.load(
 			console.log(error);
 	}
 );
+
+// const loader = new FBXLoader();
+// const returnFBX = async () => {
+// 	return loader.load(
+// 		'./models/avatar_01.fbx',
+// 	 	(object) => {
+// 			return object;
+// 		}
+// 	);
+// }
+
+// let afterloadObject = returnFBX().then(data => data);
+// console.log(afterloadObject);
+
+// console.log(test);
 
 // Camera
 // const sizes = {

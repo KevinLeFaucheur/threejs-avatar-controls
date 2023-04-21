@@ -12,7 +12,7 @@ body {
 .canvas {
   display: flex;
   justify-content: center;
-  margin-top: 100px;
+  margin-top: 100px !important;
 }
 .canvas__wrapper {
   display: flex;
@@ -34,7 +34,7 @@ body {
   border-radius: 5px;
   margin-bottom: 10px;
   font-weight: 500;
-  background-color: #246A73;
+  background-color: #45285c;
 }
 .canvas__button input {
   background-color: transparent;
@@ -65,7 +65,7 @@ body {
   padding: 10px 25px;
   border-radius: 5px;
   font-weight: 500;
-  background: linear-gradient(to bottom, #246A73, rgba(0, 255, 255, 0.3));
+  background: linear-gradient(to bottom, #45285c, #734c97);
 }
 .canvas__swapControls button {
   height: 50px;
@@ -73,7 +73,7 @@ body {
   border-style: none;
   border-radius: 5px;
   font-size: 40px;
-  background-color: #368F8B;
+  background-color: #734c97;
 }
 .canvas__swapControls button i {
   display: block;
@@ -86,7 +86,7 @@ body {
   border: none;
   border-radius: 5px;
   font-size: 32px;
-  background-color: #246A73;
+  background-color: #45285c;
 }
 
 /*# sourceMappingURL=style.css.map */
