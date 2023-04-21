@@ -125,13 +125,15 @@ window.addEventListener('resize', () =>{
 
 const camera = new THREE.PerspectiveCamera(75, sizes.width / sizes.height, 0.1, 1000);
 camera.rotation.x = Math.PI / 4;
-camera.position.y = 5;
+camera.position.y = 3;
 camera.position.z = 5;
 scene.add(camera);
 
 // Controls
 const controls = new OrbitControls(camera, canvas);
 controls.enableDamping = true;
+controls.target.set(0, 0, -10);
+controls.update();
 
 // Render
 const renderer = new THREE.WebGLRenderer({ canvas: canvas });

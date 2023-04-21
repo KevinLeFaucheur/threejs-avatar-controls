@@ -9,18 +9,28 @@ export default (scene) => {
   const fbxLoader = new FBXLoader();
   
   fbxLoader.load(
-    './models/tree.fbx',
+    './models/map.fbx',
     (object) => {
-      console.log(object);
-      object.children[0].material = new THREE.MeshStandardMaterial({ color: '#005500' });
-      object.children[0].castShadow = true;
-      object.children[0].receiveShadow = true;
-      object.children[0].position.set(
-        (Math.random() - 0.5) * 6, 
-        0,
-        (Math.random() - 0.5) * 3 - 10
-      ); 
-      map.add(object.children[0]);
+      object.traverse((mesh) => {
+        if(mesh.name.toLowerCase().includes('tree')) {
+          mesh.material = new THREE.MeshStandardMaterial({ color: '#009900' });
+        }
+        else {
+          mesh.material = new THREE.MeshStandardMaterial({ color: '#FEFEFE' });
+        }
+        mesh.castShadow = true;
+        mesh.receiveShadow = true;
+      })
+      // object.children[0].material = new THREE.MeshStandardMaterial({ color: '#005500' });
+      // object.children[0].castShadow = true;
+      // object.children[0].receiveShadow = true;
+      // object.children[0].position.set(
+      //   (Math.random() - 0.5) * 6, 
+      //   0,
+      //   (Math.random() - 0.5) * 3 - 10
+      // ); 
+      // map.add(object.children[0]);
+      map.add(object);
     },
     (xhr) => {
         console.log((xhr.loaded / xhr.total) * 100 + '% loaded');
@@ -32,7 +42,7 @@ export default (scene) => {
 
   // Grass
   const grass = new THREE.Mesh(
-    new THREE.PlaneBufferGeometry(100, 100, 1, 1),
+    new THREE.PlaneBufferGeometry(300, 300, 1, 1),
     new THREE.MeshStandardMaterial({ color: '#689780' })
   );
   grass.receiveShadow = true;

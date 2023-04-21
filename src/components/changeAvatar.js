@@ -1,7 +1,5 @@
-import * as THREE from 'three'
 import { changeColor } from './changeColor';
 import { addFeatureButton } from './addFeatureButton';
-import { toggleFeature } from './toggleFeature';
 
 export const changeAvatar = (group, avatar, init = false) => {
   const fragment = document.createRange().createContextualFragment(
