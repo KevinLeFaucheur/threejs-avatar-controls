@@ -6,7 +6,8 @@ body {
 	margin: 0;
 	overflow: hidden;
 	height: 100vh;
-  background: linear-gradient(to bottom, $color-primary, black);;
+  background: linear-gradient(to bottom, $color-primary, black);
+  color: #fff;
 }
 
 .canvas {
@@ -36,7 +37,17 @@ body {
     border-radius: 5px;
     margin-bottom: 10px;
     font-weight: 500;
-    background-color: $color-secondary;
+    background-color: lighten($color-primary, 10);;
+
+    button {
+      height: 50px;
+      width: 50px;
+      border-style: none;
+      border-radius: 5px;
+      font-size: 40px;
+      background-color: lighten($color-primary, 20);
+      cursor: pointer;
+    }
 
     input {
       background-color: transparent;
@@ -72,7 +83,8 @@ body {
     padding: 10px 25px;
     border-radius: 5px;
     font-weight: 500;
-    background: linear-gradient(to bottom, $color-secondary, $color-tertiary);
+    // background: linear-gradient(to bottom, $color-secondary, $color-tertiary);
+    background-color: lighten($color-primary, 10);
 
     button {
       height: 50px;
@@ -80,7 +92,8 @@ body {
       border-style: none;
       border-radius: 5px;
       font-size: 40px;
-      background-color: $color-tertiary;
+      background-color: lighten($color-primary, 20);
+      cursor: pointer;
     }
   }
   
@@ -96,6 +109,7 @@ body {
     border: none;
     border-radius: 5px;
     font-size: 32px;
-    background-color: $color-secondary;
+    background-color: lighten($color-primary, 10);
+    cursor: pointer;
   }
 }

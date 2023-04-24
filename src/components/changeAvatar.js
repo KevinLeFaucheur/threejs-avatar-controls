@@ -1,5 +1,5 @@
 import { changeColor } from './changeColor';
-import { addFeatureButton } from './addFeatureButton';
+import { changeFeature } from './changeFeature';
 
 export const changeAvatar = (group, avatar, init = false) => {
   const fragment = document.createRange().createContextualFragment(
@@ -44,13 +44,17 @@ export const changeAvatar = (group, avatar, init = false) => {
         });
       }
       if(group.name === 'FEATURES') {
-        document.querySelector('.canvas__buttons--add').append(addFeatureButton(group));
+        // document.querySelector('.canvas__buttons--add').append(addFeatureButton(group));
+
+        group.children.forEach(group => {
+          const feature = group.children.find(mesh => mesh.name.includes('Empty'));
+          document.querySelector('.canvas__buttons--features').append(changeFeature(feature));
+        });
       }
     });
   }
 
   if(init) {
-    console.log(avatar);
     reloadAvatarUI(avatar);
     fragment.querySelector('.avatar--name').textContent = avatar.name;
   }

@@ -1,7 +1,6 @@
-import * as THREE from 'three'
+import { changeMeshColor } from '../handlers/changeMeshColor';
 
 export const changeColor = (mesh) => {
-  console.log(mesh);
 
   const fragment = document.createRange().createContextualFragment(
     ` 
@@ -12,12 +11,7 @@ export const changeColor = (mesh) => {
     `
   );
 
-  const changeColor = (event) => {
-    const meshColor = new THREE.Color(event.target.value);
-    mesh?.material?.color.set(meshColor);
-  };
-
-  fragment.querySelector('input').onchange = changeColor;
+  fragment.querySelector('input').onchange = () => changeMeshColor(mesh, event.target.value);
 
   return fragment;
 };

@@ -19,7 +19,7 @@ export default (scene) => {
           mesh.material = new THREE.MeshStandardMaterial({ color: '#FEFEFE' });
         }
         mesh.castShadow = true;
-        mesh.receiveShadow = true;
+        // mesh.receiveShadow = true;
       })
       // object.children[0].material = new THREE.MeshStandardMaterial({ color: '#005500' });
       // object.children[0].castShadow = true;

@@ -1,10 +1,10 @@
 import './css/style.css'
 import * as THREE from 'three'
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls'
-import { FBXLoader } from 'three/examples/jsm/loaders/FBXLoader'
 import * as dat from 'dat.gui'
-
-import { changeAvatar } from './components/changeAvatar'
+import { FBXLoader } from "three/examples/jsm/loaders/FBXLoader";
+import { skinColor } from "./utils/skinColor";
+import { changeAvatar } from './components/changeAvatar';
 import createMap from './data/map'
 import createAvatars from './data/avatars'
 
@@ -47,9 +47,10 @@ lightsFolder.add(light, 'intensity', 0, 10, 0.1);
 createMap(scene);
 
 const avatarGroup = new THREE.Group();
-const avatars = createAvatars();
 avatarGroup.name = 'avatars';
 scene.add(avatarGroup);
+
+const avatars = createAvatars();
 
 const fbxLoader = new FBXLoader();
 fbxLoader.load(
@@ -58,17 +59,25 @@ fbxLoader.load(
 
 		const avatar = object;
 		avatar.name = 'JOHN';
-
-		console.log(avatar);
 		
 		const configMesh = (avatar) => {
 			avatar.children.forEach(group => {
+				const bodyColor = { color: '#'+Math.floor(Math.random()*16777215).toString(16) };
+				const headColor = { color: skinColor() };
 				group.children.forEach(mesh => {
-					mesh.material = new THREE.MeshStandardMaterial({ color: '#'+Math.floor(Math.random()*16777215).toString(16) });
+					if(mesh.name === 'Body') mesh.material = new THREE.MeshStandardMaterial(bodyColor);
+					else mesh.material = new THREE.MeshStandardMaterial(headColor);
 					mesh.castShadow = true;
 					mesh.receiveShadow = true;
 
-					if(group.name === 'FEATURES') mesh.visible = false;
+					if(group.name === 'FEATURES') {
+						group.traverse((mesh) => {
+							mesh.material = new THREE.MeshStandardMaterial({ color: '#'+Math.floor(Math.random()*16777215).toString(16) });
+							mesh.castShadow = true;
+							mesh.receiveShadow = true;
+							mesh.visible = false;
+						})
+					}
 				});
 			});
 		};
@@ -132,7 +141,7 @@ scene.add(camera);
 // Controls
 const controls = new OrbitControls(camera, canvas);
 controls.enableDamping = true;
-controls.target.set(0, 0, -10);
+controls.target.set(0, 1.3, -1);
 controls.update();
 
 // Render

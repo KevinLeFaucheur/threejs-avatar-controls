@@ -1,3 +1,5 @@
+import { toggleMeshVisible } from "../handlers/changeMeshColor";
+
 export const toggleFeature = (mesh) => {
 
   const fragment = document.createRange().createContextualFragment(
@@ -9,11 +11,7 @@ export const toggleFeature = (mesh) => {
     `
   );
 
-  const toggleFeature = (e) => {
-    mesh.visible = !mesh.visible;
-  };
-
-  fragment.querySelector('input').onclick = toggleFeature;
+  fragment.querySelector('input').onclick = toggleMeshVisible;
 
   return fragment;
 };
