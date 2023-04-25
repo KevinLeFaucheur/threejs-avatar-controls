@@ -135,7 +135,7 @@ loader.load(
 					child.material = new THREE.MeshStandardMaterial({ color: '#'+Math.floor(Math.random()*16777215).toString(16) });
 					child.castShadow = true;
 					child.receiveShadow = true;
-					console.log(child);
+					// console.log(child);
 					switch(child.name) {
 						case 'Body':
 							child.material = new THREE.MeshStandardMaterial(bodyColor);
@@ -154,7 +154,7 @@ loader.load(
 							child.castShadow = true;
 							child.receiveShadow = true;
 							child.visible = false;
-							console.log(child);
+							// console.log(child);
 							if(!child.name.includes('_') && !child.name.includes('Empty') ) {
 									avatarFolder.add(child, 'visible', child.visible).name(child.name).onChange(() => child.visible = !child.visible); 
 							}

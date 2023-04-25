@@ -1,5 +1,6 @@
 * {
 	font-family: 'Orbitron', sans-serif;
+  box-sizing: border-box;
 }
 
 body {
@@ -8,6 +9,10 @@ body {
 	height: 100vh;
   background: linear-gradient(to bottom, $color-primary, black);
   color: #fff;
+}
+
+.webgl {
+  border-radius: 5px;
 }
 
 .canvas {
@@ -37,7 +42,15 @@ body {
     border-radius: 5px;
     margin-bottom: 10px;
     font-weight: 500;
-    background-color: lighten($color-primary, 10);;
+    background-color: lighten($color-primary, 10);
+    
+    &__color {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex: 1;
+      margin: 0 5px;
+    }
 
     button {
       height: 50px;
@@ -97,10 +110,15 @@ body {
     }
   }
   
-  &__swapControls button i {
-    display: block;
-    width: 100%;
+  &__swapControls {
+    height: 70px;
+
+    button i {
+      display: block;
+      width: 100%;
+    }
   }
+  
 
   &__hud-add {
     margin: 0 auto;

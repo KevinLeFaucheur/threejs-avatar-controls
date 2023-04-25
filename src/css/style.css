@@ -1,13 +1,18 @@
 * {
   font-family: "Orbitron", sans-serif;
+  box-sizing: border-box;
 }
 
 body {
   margin: 0;
   overflow: hidden;
   height: 100vh;
-  background: linear-gradient(to bottom, #718888, black);
+  background: linear-gradient(to bottom, #27395a, black);
   color: #fff;
+}
+
+.webgl {
+  border-radius: 5px;
 }
 
 .canvas {
@@ -35,7 +40,14 @@ body {
   border-radius: 5px;
   margin-bottom: 10px;
   font-weight: 500;
-  background-color: #8ca0a0;
+  background-color: #36507e;
+}
+.canvas__button__color {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex: 1;
+  margin: 0 5px;
 }
 .canvas__button button {
   height: 50px;
@@ -43,7 +55,7 @@ body {
   border-style: none;
   border-radius: 5px;
   font-size: 40px;
-  background-color: #a8b7b7;
+  background-color: #4666a1;
   cursor: pointer;
 }
 .canvas__button input {
@@ -75,7 +87,7 @@ body {
   padding: 10px 25px;
   border-radius: 5px;
   font-weight: 500;
-  background-color: #8ca0a0;
+  background-color: #36507e;
 }
 .canvas__swapControls button {
   height: 50px;
@@ -83,8 +95,11 @@ body {
   border-style: none;
   border-radius: 5px;
   font-size: 40px;
-  background-color: #a8b7b7;
+  background-color: #4666a1;
   cursor: pointer;
+}
+.canvas__swapControls {
+  height: 70px;
 }
 .canvas__swapControls button i {
   display: block;
@@ -97,7 +112,7 @@ body {
   border: none;
   border-radius: 5px;
   font-size: 32px;
-  background-color: #8ca0a0;
+  background-color: #36507e;
   cursor: pointer;
 }
 
