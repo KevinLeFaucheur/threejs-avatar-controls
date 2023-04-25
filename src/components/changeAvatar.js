@@ -17,20 +17,20 @@ export const changeAvatar = (group, avatar, init = false) => {
   );
 
   const loadNewAvatar = (index) => {
-    let avatar = null;
+    let newAvatar = null;
 
-    if(group?.children?.find(avatar => avatar.name === 'avatar1')){
+    if(group?.children?.find(newAvatar => newAvatar.name === 'avatar1')){
       group.clear();
-      avatar = avatar[1];
+      avatar = newAvatar[1];
     } 
     else {
       group.clear();
-      avatar = avatar[0];
+      newAvatar = newAvatar[0];
     }
-    group.add(avatar);
+    group.add(newAvatar);
 
-    reloadAvatarUI(avatar);
-    document.querySelector('.avatar--name').textContent = avatar.name;
+    reloadAvatarUI(newAvatar);
+    document.querySelector('.avatar--name').textContent = newAvatar.name;
   };
 
   const reloadAvatarUI = (avatar) => {
@@ -46,8 +46,8 @@ export const changeAvatar = (group, avatar, init = false) => {
       if(group.name === 'FEATURES') {
         // document.querySelector('.canvas__buttons--add').append(addFeatureButton(group));
 
-        group.children.forEach(group => {
-          const feature = group.children.find(mesh => mesh.name.includes('Empty'));
+        group.children.forEach(subgroup => {
+          const feature = subgroup.children.find(mesh => mesh.name.includes('Empty'));
           document.querySelector('.canvas__buttons--features').append(changeFeature(feature));
         });
       }
@@ -55,6 +55,8 @@ export const changeAvatar = (group, avatar, init = false) => {
   }
 
   if(init) {
+    group.add(avatar);
+    console.log(group);
     reloadAvatarUI(avatar);
     fragment.querySelector('.avatar--name').textContent = avatar.name;
   }

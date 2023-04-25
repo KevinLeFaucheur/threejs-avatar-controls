@@ -1,4 +1,4 @@
-import { changeAvatarFeature } from "../handlers/changeMeshColor";
+import { changeAvatarFeature, changeMeshColor } from "../handlers/changeMeshColor";
 
 export const changeFeature = (mesh) => {
   if(mesh.name.includes('Empty')) mesh.name = 'None';
@@ -9,7 +9,7 @@ export const changeFeature = (mesh) => {
 
       <button class="fa fa-angle-left"></button>
 
-      ${mesh.name.includes('Empty') 
+      ${!mesh.name.includes('None') 
       // 
       ? `
       <label for=${mesh.name}>${mesh.name} Color: </label>
@@ -27,7 +27,12 @@ export const changeFeature = (mesh) => {
     document.getElementById(mesh.name).replaceWith(changeFeature(newMesh));
   }
  
-  // fragment.querySelector('input').onchange = changeColor;
+  if(!mesh.name.includes('None')) {
+    fragment
+      .querySelector('input')
+      .onchange = () => changeMeshColor(mesh, event.target.value);
+  }
+    
   fragment
     .querySelectorAll('button')
     .forEach((button, index) => button.onclick = () => onChangeAvatarFeature(mesh, index));

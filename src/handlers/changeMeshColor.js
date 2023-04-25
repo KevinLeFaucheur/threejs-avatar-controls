@@ -20,3 +20,7 @@ export const changeAvatarFeature = (mesh, offset) => {
 export const toggleMeshVisible = (mesh) => {
   mesh.visible === true ? mesh.visible = false : mesh.visible = true;
 };
+
+export const initAvatar = () => {
+
+};

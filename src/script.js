@@ -3,10 +3,12 @@ import * as THREE from 'three'
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls'
 import * as dat from 'dat.gui'
 import { FBXLoader } from "three/examples/jsm/loaders/FBXLoader";
+import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
 import { skinColor } from "./utils/skinColor";
 import { changeAvatar } from './components/changeAvatar';
 import createMap from './data/map'
 import createAvatars from './data/avatars'
+import { logAvatarGroup } from './debug/debugUtils';
 
 
 // GUI
@@ -50,41 +52,123 @@ const avatarGroup = new THREE.Group();
 avatarGroup.name = 'avatars';
 scene.add(avatarGroup);
 
+// Avatar GUI
+const avatarFolder = gui.addFolder('Avatar');
+
 const avatars = createAvatars();
 
-const fbxLoader = new FBXLoader();
-fbxLoader.load(
-	'./models/avatar_01.fbx',
-	(object) => {
+// const fbxLoader = new FBXLoader();
+// fbxLoader.load(
+// 	'./models/avatar_01.fbx',
+// 	(object) => {
 
-		const avatar = object;
+		// const avatar = object;
+		// avatar.name = 'JOHN';
+		// const bodyColor = { color: '#'+Math.floor(Math.random()*16777215).toString(16) };
+		// const headColor = { color: skinColor() };
+		
+		// const configMesh = (avatar) => {
+		// 	avatar.traverse(child => {
+		// 		if(child instanceof THREE.Mesh) {
+		// 			child.material = new THREE.MeshStandardMaterial({ color: '#'+Math.floor(Math.random()*16777215).toString(16) });
+		// 			child.castShadow = true;
+		// 			child.receiveShadow = true;
+		// 			console.log(child);
+		// 			// switch(child.name) {
+		// 			// 	case 'Body':
+		// 			// 		child.material = new THREE.MeshStandardMaterial(bodyColor);
+		// 			// 		child.castShadow = true;
+		// 			// 		child.receiveShadow = true;
+		// 			// 		avatarFolder.add(child, 'visible', true).name(child.name).onChange(() => child.visible = !child.visible); 
+		// 			// 		break;
+		// 			// 	case 'Head':
+		// 			// 		child.material = new THREE.MeshStandardMaterial(headColor);
+		// 			// 		child.castShadow = true;
+		// 			// 		child.receiveShadow = true;
+		// 			// 		avatarFolder.add(child, 'visible', true).name(child.name).onChange(() => child.visible = !child.visible); 
+		// 			// 		break;
+		// 			// 	default:
+		// 			// 		child.material = new THREE.MeshStandardMaterial({ color: '#'+Math.floor(Math.random()*16777215).toString(16) });
+		// 			// 		child.castShadow = true;
+		// 			// 		child.receiveShadow = true;
+		// 			// 		// child.visible = false;
+		// 			// 		console.log(child);
+		// 			// 		if(!child.name.includes('_') && !child.name.includes('Empty') ) {
+		// 			// 				avatarFolder.add(child, 'visible', child.visible).name(child.name).onChange(() => child.visible = !child.visible); 
+		// 			// 		}
+		// 			// }
+		// 		}
+		// 	});
+		// };
+		
+		// configMesh(avatar);
+
+		// // document.querySelector('.canvas__swap').append(changeAvatar(avatarGroup, avatar, true));
+		// avatarGroup.add(avatar);
+		// console.log(avatarGroup);
+		// document.getElementById('debug').append(logAvatarGroup(avatarGroup));
+
+// 		scene.add(object);
+// 	},
+// 	(xhr) => {
+// 			console.log((xhr.loaded / xhr.total) * 100 + '% loaded');
+// 	},
+// 	(error) => {
+// 			console.log(error);
+// 	}
+// );
+
+
+const loader = new GLTFLoader();
+loader.load(
+	'./models/avatar_01.gltf',
+	(gltf) => {
+
+		const avatar = gltf.scene;
 		avatar.name = 'JOHN';
+		const bodyColor = { color: '#'+Math.floor(Math.random()*16777215).toString(16) };
+		const headColor = { color: skinColor() };
 		
 		const configMesh = (avatar) => {
-			avatar.children.forEach(group => {
-				const bodyColor = { color: '#'+Math.floor(Math.random()*16777215).toString(16) };
-				const headColor = { color: skinColor() };
-				group.children.forEach(mesh => {
-					if(mesh.name === 'Body') mesh.material = new THREE.MeshStandardMaterial(bodyColor);
-					else mesh.material = new THREE.MeshStandardMaterial(headColor);
-					mesh.castShadow = true;
-					mesh.receiveShadow = true;
-
-					if(group.name === 'FEATURES') {
-						group.traverse((mesh) => {
-							mesh.material = new THREE.MeshStandardMaterial({ color: '#'+Math.floor(Math.random()*16777215).toString(16) });
-							mesh.castShadow = true;
-							mesh.receiveShadow = true;
-							mesh.visible = false;
-						})
+			avatar.traverse(child => {
+				if(child instanceof THREE.Mesh) {
+					child.material = new THREE.MeshStandardMaterial({ color: '#'+Math.floor(Math.random()*16777215).toString(16) });
+					child.castShadow = true;
+					child.receiveShadow = true;
+					console.log(child);
+					switch(child.name) {
+						case 'Body':
+							child.material = new THREE.MeshStandardMaterial(bodyColor);
+							child.castShadow = true;
+							child.receiveShadow = true;
+							avatarFolder.add(child, 'visible', true).name(child.name).onChange(() => child.visible = !child.visible); 
+							break;
+						case 'Head':
+							child.material = new THREE.MeshStandardMaterial(headColor);
+							child.castShadow = true;
+							child.receiveShadow = true;
+							avatarFolder.add(child, 'visible', true).name(child.name).onChange(() => child.visible = !child.visible); 
+							break;
+						default:
+							child.material = new THREE.MeshStandardMaterial({ color: '#'+Math.floor(Math.random()*16777215).toString(16) });
+							child.castShadow = true;
+							child.receiveShadow = true;
+							child.visible = false;
+							console.log(child);
+							if(!child.name.includes('_') && !child.name.includes('Empty') ) {
+									avatarFolder.add(child, 'visible', child.visible).name(child.name).onChange(() => child.visible = !child.visible); 
+							}
 					}
-				});
+				}
 			});
 		};
 		
 		configMesh(avatar);
 
 		document.querySelector('.canvas__swap').append(changeAvatar(avatarGroup, avatar, true));
+		avatarGroup.add(avatar);
+		console.log(avatarGroup);
+		document.getElementById('debug').append(logAvatarGroup(avatarGroup));
 
 		scene.add(avatar);
 	},
