@@ -128,6 +128,9 @@ loader.load(
 		avatar.name = 'JOHN';
 		const bodyColor = { color: '#'+Math.floor(Math.random()*16777215).toString(16) };
 		const headColor = { color: skinColor() };
+		const baseEyeColor = { color: '#FFF' };
+		const irisColor = { color: '#'+Math.floor(Math.random()*16777215).toString(16) };
+		const browsColor = { color: '#'+Math.floor(Math.random()*16777215).toString(16) };
 		
 		const configMesh = (avatar) => {
 			avatar.traverse(child => {
@@ -149,11 +152,32 @@ loader.load(
 							child.receiveShadow = true;
 							avatarFolder.add(child, 'visible', true).name(child.name).onChange(() => child.visible = !child.visible); 
 							break;
+						case 'Base':
+							child.material = new THREE.MeshStandardMaterial(baseEyeColor);
+							child.castShadow = true;
+							child.receiveShadow = true;
+							avatarFolder.add(child, 'visible', true).name(child.name).onChange(() => child.visible = !child.visible); 
+							break;
+						case 'Iris':
+							child.material = new THREE.MeshStandardMaterial(irisColor);
+							child.castShadow = true;
+							child.receiveShadow = true;
+							avatarFolder.add(child, 'visible', true).name(child.name).onChange(() => child.visible = !child.visible); 
+							break;
+						case 'Brows':
+							child.material = new THREE.MeshStandardMaterial(browsColor);
+							child.castShadow = true;
+							child.receiveShadow = true;
+							avatarFolder.add(child, 'visible', true).name(child.name).onChange(() => child.visible = !child.visible); 
+							break;
 						default:
 							child.material = new THREE.MeshStandardMaterial({ color: '#'+Math.floor(Math.random()*16777215).toString(16) });
 							child.castShadow = true;
 							child.receiveShadow = true;
 							child.visible = false;
+							if(['Glasses', 'Cap'].some(string => child.name.includes(string))) {
+								child.material.side = THREE.DoubleSide;
+							}
 							// console.log(child);
 							if(!child.name.includes('_') && !child.name.includes('Empty') ) {
 									avatarFolder.add(child, 'visible', child.visible).name(child.name).onChange(() => child.visible = !child.visible); 

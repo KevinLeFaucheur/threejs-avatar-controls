@@ -43,6 +43,13 @@ export const changeAvatar = (group, avatar, init = false) => {
           document.querySelector('.canvas__buttons--avatar').append(changeColor(mesh));
         });
       }
+      if(group.name === 'EYES') {
+        group.children.forEach(mesh => {
+          if(mesh.name !== 'Base') { 
+            document.querySelector('.canvas__buttons--avatar').append(changeColor(mesh));
+          }
+        });
+      }
       if(group.name === 'FEATURES') {
         // document.querySelector('.canvas__buttons--add').append(addFeatureButton(group));
 
