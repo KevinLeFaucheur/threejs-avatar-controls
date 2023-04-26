@@ -36,6 +36,7 @@ body {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  position: relative;
   padding: 5px 10px;
   border-radius: 5px;
   margin-bottom: 5px;
@@ -66,9 +67,9 @@ body {
   border: none;
   cursor: pointer;
   width: 30px;
-  height: 30px;
+  height: 34px;
   padding: 0;
-  margin: 0;
+  margin: -4px -2px;
 }
 .canvas__button input::-webkit-color-swatch {
   border-radius: 5px;
@@ -122,45 +123,65 @@ body {
   cursor: pointer;
 }
 
-#swatch {
-  position: absolute;
-  top: 18%;
-  right: 8%;
-}
-#swatch .swatch__header {
+.swatch__header {
   display: flex;
   justify-content: space-between;
 }
-#swatch .swatch__header p {
+.swatch__header p {
   margin: 0;
 }
-#swatch .swatch__header .close {
-  padding: 5px;
-  color: #fff;
+.swatch__header .close {
+  display: flex;
   background-color: transparent;
   border: none;
   cursor: pointer;
+  width: 30px;
+  height: 30px;
+  color: #fff;
+  padding: 5px;
+  line-height: 7px;
 }
-#swatch .swatch__header .close:hover {
+.swatch__header .close:hover {
   color: aquamarine;
 }
-#swatch .swatch__wrapper {
+
+.swatch__wrapper {
   display: flex;
   flex-direction: column;
-  max-width: 150px;
+  visibility: hidden;
+  position: absolute;
+  top: 0;
+  left: 110%;
+  z-index: 1;
+  min-width: 150px;
   padding: 5px;
   border-radius: 5px;
   background-color: #6080ba;
 }
-#swatch .swatch__container {
+
+.swatch__container {
   display: flex;
   flex-wrap: wrap;
 }
-#swatch .swatch__container .swatch__color {
+.swatch__container .swatch__color {
   width: 30px;
   height: 30px;
   border-radius: 5px;
   margin: 1px;
+}
+
+.show {
+  visibility: visible;
+  animation: fadeIn 1s;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }
 
 /*# sourceMappingURL=style.css.map */

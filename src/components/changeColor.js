@@ -14,10 +14,11 @@ export const changeColor = (mesh, bool = false) => {
     `
   );
 
-  bool ? 
-    fragment.querySelector('.input__color').onclick = () => {
-      document.getElementById('swatch').append(swatchMeshColors(mesh));
-    } : 
-    fragment.querySelector('input').onchange = () => changeMeshColor(mesh, event.target.value);
+  if(bool) {
+    fragment.querySelector('.canvas__button').append(swatchMeshColors(mesh));
+    fragment.querySelector('.input__color').onclick = () => document.querySelector('.swatch__wrapper').classList.toggle('show');
+  }
+  else fragment.querySelector('input').onchange = () => changeMeshColor(mesh, event.target.value);
+
   return fragment;
 };

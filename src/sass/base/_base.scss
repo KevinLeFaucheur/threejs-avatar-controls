@@ -38,6 +38,7 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    position: relative;
     padding: 5px 10px;
     border-radius: 5px;
     margin-bottom: 5px;
@@ -71,9 +72,9 @@ body {
       border: none;
       cursor: pointer;
       width: 30px;
-      height: 30px;
+      height: 34px;
       padding: 0;
-      margin: 0;
+      margin: -4px -2px;
 
       &::-webkit-color-swatch {
         border-radius: 5px;
@@ -139,50 +140,64 @@ body {
   }
 }
 
-#swatch {
+
+.swatch__header {
+  display: flex;
+  justify-content: space-between;
+
+  p {
+    margin: 0;
+  }
+
+  .close {
+    display: flex; 
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    width: 30px;
+    height: 30px;
+    color: #fff;  
+    padding: 5px;  
+    line-height: 7px;
+
+    &:hover {
+      color: aquamarine;
+    }
+  }
+}
+
+.swatch__wrapper {
+  display: flex;
+  flex-direction: column;
+  visibility: hidden;
   position: absolute;
-  top: 18%;
-  right: 8%;
+  top: 0;
+  left: 110%;
+  z-index: 1;
+  min-width: 150px;
+  padding: 5px;
+  border-radius: 5px;
+  background-color: lighten($color-primary, 30);
+}
 
-  .swatch__header {
-    display: flex;
-    justify-content: space-between;
+.swatch__container {
+  display: flex;
+  flex-wrap: wrap;
 
-    p {
-      margin: 0;
-    }
-
-    .close {
-      padding: 5px;    
-      color: #fff;  
-      background-color: transparent;
-      border: none;
-      cursor: pointer;
-
-      &:hover {
-        color: aquamarine;
-      }
-    }
-  }
-
-  .swatch__wrapper {
-    display: flex;
-    flex-direction: column;
-    max-width: 150px;
-    padding: 5px;
+  .swatch__color {
+    width: 30px;
+    height: 30px;
     border-radius: 5px;
-    background-color: lighten($color-primary, 30);
+    margin: 1px;
   }
+}
 
-  .swatch__container {
-    display: flex;
-    flex-wrap: wrap;
+.show {
+  visibility: visible;
+  animation: fadeIn 1s;
+}
 
-    .swatch__color {
-      width: 30px;
-      height: 30px;
-      border-radius: 5px;
-      margin: 1px;
-    }
-  }
+@keyframes fadeIn {
+  from {opacity: 0;}
+  to {opacity: 1;}
 }
