@@ -140,7 +140,10 @@ loader.load(
 					child.receiveShadow = true;
 					// console.log(child);
 					switch(child.name) {
-						case 'Body':
+						// case 'Body':
+						case 'Belt':
+						case 'Shirt':
+						case 'Pants':
 							child.material = new THREE.MeshStandardMaterial(bodyColor);
 							child.castShadow = true;
 							child.receiveShadow = true;
@@ -238,7 +241,7 @@ window.addEventListener('resize', () =>{
 
 	renderer.setSize(sizes.width / sizes.height);
 	renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-})
+}, false)
 
 const camera = new THREE.PerspectiveCamera(75, sizes.width / sizes.height, 0.1, 1000);
 camera.rotation.x = Math.PI / 4;

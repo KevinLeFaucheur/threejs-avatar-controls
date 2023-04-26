@@ -36,9 +36,9 @@ body {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 10px 25px;
+  padding: 5px 10px;
   border-radius: 5px;
-  margin-bottom: 10px;
+  margin-bottom: 5px;
   font-weight: 500;
   background-color: #36507e;
 }
@@ -49,12 +49,15 @@ body {
   flex: 1;
   margin: 0 5px;
 }
+.canvas__button p {
+  margin: 0;
+}
 .canvas__button button {
-  height: 50px;
-  width: 50px;
   border-style: none;
   border-radius: 5px;
-  font-size: 40px;
+  width: 30px;
+  height: 30px;
+  font-size: 24px;
   background-color: #4666a1;
   cursor: pointer;
 }
@@ -62,16 +65,19 @@ body {
   background-color: transparent;
   border: none;
   cursor: pointer;
-  width: 50px;
-  height: 50px;
+  width: 30px;
+  height: 30px;
+  padding: 0;
+  margin: 0;
 }
 .canvas__button input::-webkit-color-swatch {
   border-radius: 5px;
   border: none;
 }
-.canvas__button > button {
-  height: 50px;
-  width: 50px;
+.canvas__button .input__color {
+  width: 26px;
+  height: 26px;
+  border-radius: 5px;
 }
 .canvas__swap {
   display: flex;
@@ -114,6 +120,47 @@ body {
   font-size: 32px;
   background-color: #36507e;
   cursor: pointer;
+}
+
+#swatch {
+  position: absolute;
+  top: 18%;
+  right: 8%;
+}
+#swatch .swatch__header {
+  display: flex;
+  justify-content: space-between;
+}
+#swatch .swatch__header p {
+  margin: 0;
+}
+#swatch .swatch__header .close {
+  padding: 5px;
+  color: #fff;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+}
+#swatch .swatch__header .close:hover {
+  color: aquamarine;
+}
+#swatch .swatch__wrapper {
+  display: flex;
+  flex-direction: column;
+  max-width: 150px;
+  padding: 5px;
+  border-radius: 5px;
+  background-color: #6080ba;
+}
+#swatch .swatch__container {
+  display: flex;
+  flex-wrap: wrap;
+}
+#swatch .swatch__container .swatch__color {
+  width: 30px;
+  height: 30px;
+  border-radius: 5px;
+  margin: 1px;
 }
 
 /*# sourceMappingURL=style.css.map */

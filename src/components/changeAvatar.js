@@ -40,7 +40,10 @@ export const changeAvatar = (group, avatar, init = false) => {
     avatar.children.forEach(group => {
       if(group.name === 'AVATAR') {
         group.children.forEach(mesh => {
-          document.querySelector('.canvas__buttons--avatar').append(changeColor(mesh));
+          if(mesh.name === 'Head') { 
+            document.querySelector('.canvas__buttons--avatar').append(changeColor(mesh, true));
+          }
+          else document.querySelector('.canvas__buttons--avatar').append(changeColor(mesh));
         });
       }
       if(group.name === 'EYES') {
