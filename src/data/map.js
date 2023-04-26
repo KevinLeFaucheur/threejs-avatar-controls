@@ -1,5 +1,6 @@
 import * as THREE from 'three';
 import { FBXLoader } from 'three/examples/jsm/loaders/FBXLoader';
+import { maps } from './paths'
 
 export default (scene) => {
 
@@ -9,7 +10,7 @@ export default (scene) => {
   const fbxLoader = new FBXLoader();
   
   fbxLoader.load(
-    './models/map.fbx',
+    maps[0],
     (object) => {
       object.traverse((mesh) => {
         if(mesh.name.toLowerCase().includes('tree')) {

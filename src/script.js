@@ -9,6 +9,7 @@ import { changeAvatar } from './components/changeAvatar';
 import createMap from './data/map'
 import createAvatars from './data/avatars'
 import { logAvatarGroup } from './debug/debugUtils';
+import { avatars } from './data/paths'
 
 
 // GUI
@@ -55,7 +56,7 @@ scene.add(avatarGroup);
 // Avatar GUI
 const avatarFolder = gui.addFolder('Avatar');
 
-const avatars = createAvatars();
+// const avatars = createAvatars();
 
 // const fbxLoader = new FBXLoader();
 // fbxLoader.load(
@@ -121,7 +122,7 @@ const avatars = createAvatars();
 
 const loader = new GLTFLoader();
 loader.load(
-	'./models/avatar_01.gltf',
+	avatars[0],
 	(gltf) => {
 
 		const avatar = gltf.scene;
@@ -144,7 +145,7 @@ loader.load(
 						case 'Belt':
 						case 'Shirt':
 						case 'Pants':
-							child.material = new THREE.MeshStandardMaterial(bodyColor);
+							child.material = new THREE.MeshStandardMaterial({ color: '#'+Math.floor(Math.random()*16777215).toString(16) });
 							child.castShadow = true;
 							child.receiveShadow = true;
 							avatarFolder.add(child, 'visible', true).name(child.name).onChange(() => child.visible = !child.visible); 
