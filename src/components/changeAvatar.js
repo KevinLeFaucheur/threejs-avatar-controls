@@ -40,6 +40,7 @@ export const changeAvatar = (group, avatar, init = false) => {
     avatar.children.forEach(group => {
       if(group.name === 'AVATAR') {
         group.children.forEach(mesh => {
+          if(mesh.name === 'Body') return;
           if(mesh.name === 'Head') { 
             document.querySelector('.customization--avatar').append(changeColor(mesh, true));
           }

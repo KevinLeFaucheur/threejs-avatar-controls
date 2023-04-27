@@ -1,6 +1,7 @@
 import * as THREE from 'three';
 import { FBXLoader } from 'three/examples/jsm/loaders/FBXLoader';
 import { maps } from './paths'
+import { mapController } from '../components/map/mapController';
 
 export default (scene) => {
 
@@ -50,6 +51,10 @@ export default (scene) => {
   grass.rotation.x = -Math.PI / 2;
   // grass.position.y = -1;
   map.add(grass);
+  map.name = 'Map 1';
+  
+
+  document.querySelector('.customization--map').append(mapController(map));
 
   // Tree
   // const tree = new THREE.Mesh(

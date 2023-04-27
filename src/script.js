@@ -10,6 +10,7 @@ import createMap from './data/map'
 import createAvatars from './data/avatars'
 import { logAvatarGroup } from './debug/debugUtils';
 import { avatars } from './data/paths'
+import { lightController } from './components/map/lightController';
 
 
 // GUI
@@ -23,7 +24,8 @@ const canvas = document.querySelector('.webgl');
 // Light
 const light = new THREE.AmbientLight(0x505050); // soft white light
 scene.add(light);
-const directionalLight = new THREE.DirectionalLight(0xffffff, 0.5);
+
+const directionalLight = new THREE.DirectionalLight('#FFF', 0.5);
 directionalLight.position.set(0, 10, 2);
 directionalLight.castShadow = true;
 directionalLight.shadow.camera.left = -50; // default
@@ -36,15 +38,17 @@ directionalLight.shadow.mapSize.width = 512; // default
 directionalLight.shadow.mapSize.height = 512; // default
 scene.add(directionalLight);
 
+document.querySelector('.customization--map').append(lightController(directionalLight));
+
 // Light GUI
 const lightsFolder = gui.addFolder('Lights');
 lightsFolder.add(light, 'intensity', 0, 10, 0.1);
 
 // Light Helper
-// const helper = new THREE.DirectionalLightHelper(directionalLight, 5);
-// scene.add(helper);
-// const cameraHelper = new THREE.CameraHelper(directionalLight.shadow.camera);
-// scene.add(cameraHelper);
+const helper = new THREE.DirectionalLightHelper(directionalLight, 5);
+scene.add(helper);
+const cameraHelper = new THREE.CameraHelper(directionalLight.shadow.camera);
+scene.add(cameraHelper);
 
 // Geometry
 createMap(scene);
@@ -56,70 +60,6 @@ scene.add(avatarGroup);
 // Avatar GUI
 const avatarFolder = gui.addFolder('Avatar');
 
-// const avatars = createAvatars();
-
-// const fbxLoader = new FBXLoader();
-// fbxLoader.load(
-// 	'./models/avatar_01.fbx',
-// 	(object) => {
-
-		// const avatar = object;
-		// avatar.name = 'JOHN';
-		// const bodyColor = { color: '#'+Math.floor(Math.random()*16777215).toString(16) };
-		// const headColor = { color: skinColor() };
-		
-		// const configMesh = (avatar) => {
-		// 	avatar.traverse(child => {
-		// 		if(child instanceof THREE.Mesh) {
-		// 			child.material = new THREE.MeshStandardMaterial({ color: '#'+Math.floor(Math.random()*16777215).toString(16) });
-		// 			child.castShadow = true;
-		// 			child.receiveShadow = true;
-		// 			console.log(child);
-		// 			// switch(child.name) {
-		// 			// 	case 'Body':
-		// 			// 		child.material = new THREE.MeshStandardMaterial(bodyColor);
-		// 			// 		child.castShadow = true;
-		// 			// 		child.receiveShadow = true;
-		// 			// 		avatarFolder.add(child, 'visible', true).name(child.name).onChange(() => child.visible = !child.visible); 
-		// 			// 		break;
-		// 			// 	case 'Head':
-		// 			// 		child.material = new THREE.MeshStandardMaterial(headColor);
-		// 			// 		child.castShadow = true;
-		// 			// 		child.receiveShadow = true;
-		// 			// 		avatarFolder.add(child, 'visible', true).name(child.name).onChange(() => child.visible = !child.visible); 
-		// 			// 		break;
-		// 			// 	default:
-		// 			// 		child.material = new THREE.MeshStandardMaterial({ color: '#'+Math.floor(Math.random()*16777215).toString(16) });
-		// 			// 		child.castShadow = true;
-		// 			// 		child.receiveShadow = true;
-		// 			// 		// child.visible = false;
-		// 			// 		console.log(child);
-		// 			// 		if(!child.name.includes('_') && !child.name.includes('Empty') ) {
-		// 			// 				avatarFolder.add(child, 'visible', child.visible).name(child.name).onChange(() => child.visible = !child.visible); 
-		// 			// 		}
-		// 			// }
-		// 		}
-		// 	});
-		// };
-		
-		// configMesh(avatar);
-
-		// // document.querySelector('.canvas__swap').append(changeAvatar(avatarGroup, avatar, true));
-		// avatarGroup.add(avatar);
-		// console.log(avatarGroup);
-		// document.getElementById('debug').append(logAvatarGroup(avatarGroup));
-
-// 		scene.add(object);
-// 	},
-// 	(xhr) => {
-// 			console.log((xhr.loaded / xhr.total) * 100 + '% loaded');
-// 	},
-// 	(error) => {
-// 			console.log(error);
-// 	}
-// );
-
-
 const loader = new GLTFLoader();
 loader.load(
 	avatars[0],
@@ -127,7 +67,6 @@ loader.load(
 
 		const avatar = gltf.scene;
 		avatar.name = 'JOHN';
-		const bodyColor = { color: '#'+Math.floor(Math.random()*16777215).toString(16) };
 		const headColor = { color: skinColor() };
 		const baseEyeColor = { color: '#FFF' };
 		const irisColor = { color: '#'+Math.floor(Math.random()*16777215).toString(16) };
@@ -136,10 +75,6 @@ loader.load(
 		const configMesh = (avatar) => {
 			avatar.traverse(child => {
 				if(child instanceof THREE.Mesh) {
-					child.material = new THREE.MeshStandardMaterial({ color: '#'+Math.floor(Math.random()*16777215).toString(16) });
-					child.castShadow = true;
-					child.receiveShadow = true;
-					// console.log(child);
 					switch(child.name) {
 						// case 'Body':
 						case 'Belt':
