@@ -1,28 +1,26 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Avatars</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.2.0/css/all.css"> -->
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Avatars</title>
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500&display=swap" rel="stylesheet">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+	<!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.2.0/css/all.css"> -->
 </head>
 <body>
-    <div class="canvas">
-        <div class="canvas__wrapper">
-            <canvas class="webgl"></canvas>
-            <div class="canvas__swap"></div>
-        </div>
-         <div class="canvas__buttons">
-            <div class="canvas__buttons--avatar"></div>
-            <div class="canvas__buttons--features"></div>
-            <div class="canvas__buttons--add"></div>
-         </div>
-    </div>
-    <div id="swatch"></div>
-    <div id="debug"></div>
+	<main>
+		<section class="avatar">
+			<canvas class="webgl"></canvas>
+			<div class="selectors"></div>
+		</section>
+		<section class="customization">
+			<div class="customization--avatar"></div>
+			<div class="customization--features"></div>
+		</div>
+		<section id="debug"></div>
+	</main>
 </body>
 </html>

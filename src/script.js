@@ -193,7 +193,7 @@ loader.load(
 		
 		configMesh(avatar);
 
-		document.querySelector('.canvas__swap').append(changeAvatar(avatarGroup, avatar, true));
+		document.querySelector('.selectors').append(changeAvatar(avatarGroup, avatar, true));
 		avatarGroup.add(avatar);
 		console.log(avatarGroup);
 		document.getElementById('debug').append(logAvatarGroup(avatarGroup));

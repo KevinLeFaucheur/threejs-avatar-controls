@@ -4,6 +4,9 @@
 }
 
 body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   margin: 0;
   overflow: hidden;
   height: 100vh;
@@ -15,24 +18,25 @@ body {
   border-radius: 5px;
 }
 
-.canvas {
+main {
   display: flex;
   justify-content: center;
-  margin-top: 100px !important;
 }
-.canvas__wrapper {
+
+.avatar {
   display: flex;
   flex-direction: column;
   justify-content: center;
 }
-.canvas__buttons {
+
+.customization {
   display: flex;
   flex-direction: column;
   height: 700px;
   width: 400px;
   padding-left: 50px;
 }
-.canvas__button {
+.customization__controller {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -43,17 +47,18 @@ body {
   font-weight: 500;
   background-color: #36507e;
 }
-.canvas__button__color {
+.customization__controller--color {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  flex: 1;
-  margin: 0 5px;
+  width: 26px;
+  height: 26px;
+  border-radius: 5px;
 }
-.canvas__button p {
+.customization__controller p {
   margin: 0;
 }
-.canvas__button button {
+.customization__controller button {
   border-style: none;
   border-radius: 5px;
   width: 30px;
@@ -62,7 +67,7 @@ body {
   background-color: #4666a1;
   cursor: pointer;
 }
-.canvas__button input {
+.customization__controller input {
   background-color: transparent;
   border: none;
   cursor: pointer;
@@ -71,21 +76,17 @@ body {
   padding: 0;
   margin: -4px -2px;
 }
-.canvas__button input::-webkit-color-swatch {
+.customization__controller input::-webkit-color-swatch {
   border-radius: 5px;
   border: none;
 }
-.canvas__button .input__color {
-  width: 26px;
-  height: 26px;
-  border-radius: 5px;
-}
-.canvas__swap {
+
+.selectors {
   display: flex;
   justify-content: center;
   height: 20%;
 }
-.canvas__swapControls {
+.selectors--avatar {
   display: flex;
   justify-content: space-between;
   margin: 10px 0;
@@ -96,7 +97,7 @@ body {
   font-weight: 500;
   background-color: #36507e;
 }
-.canvas__swapControls button {
+.selectors--avatar button {
   height: 50px;
   width: 50px;
   border-style: none;
@@ -105,22 +106,12 @@ body {
   background-color: #4666a1;
   cursor: pointer;
 }
-.canvas__swapControls {
+.selectors--avatar {
   height: 70px;
 }
-.canvas__swapControls button i {
+.selectors--avatar button i {
   display: block;
   width: 100%;
-}
-.canvas__hud-add {
-  margin: 0 auto;
-  width: 100%;
-  height: 50px;
-  border: none;
-  border-radius: 5px;
-  font-size: 32px;
-  background-color: #36507e;
-  cursor: pointer;
 }
 
 .swatch__header {

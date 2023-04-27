@@ -4,7 +4,7 @@ import { changeFeature } from './changeFeature';
 export const changeAvatar = (group, avatar, init = false) => {
   const fragment = document.createRange().createContextualFragment(
     ` 
-    <div class="canvas__swapControls">
+    <div class="selectors--avatar">
 
       <button class="fa fa-angle-left"></button>
 
@@ -34,31 +34,31 @@ export const changeAvatar = (group, avatar, init = false) => {
   };
 
   const reloadAvatarUI = (avatar) => {
-    document.querySelector('.canvas__buttons--avatar').innerHTML = '';
-    document.querySelector('.canvas__buttons--features').innerHTML = '';
+    document.querySelector('.customization--avatar').innerHTML = '';
+    document.querySelector('.customization--features').innerHTML = '';
 
     avatar.children.forEach(group => {
       if(group.name === 'AVATAR') {
         group.children.forEach(mesh => {
           if(mesh.name === 'Head') { 
-            document.querySelector('.canvas__buttons--avatar').append(changeColor(mesh, true));
+            document.querySelector('.customization--avatar').append(changeColor(mesh, true));
           }
-          else document.querySelector('.canvas__buttons--avatar').append(changeColor(mesh));
+          else document.querySelector('.customization--avatar').append(changeColor(mesh));
         });
       }
       if(group.name === 'EYES') {
         group.children.forEach(mesh => {
           if(mesh.name !== 'Base') { 
-            document.querySelector('.canvas__buttons--avatar').append(changeColor(mesh));
+            document.querySelector('.customization--avatar').append(changeColor(mesh));
           }
         });
       }
       if(group.name === 'FEATURES') {
-        // document.querySelector('.canvas__buttons--add').append(addFeatureButton(group));
+        // document.querySelector('.customization--add').append(addFeatureButton(group));
 
         group.children.forEach(subgroup => {
           const feature = subgroup.children.find(mesh => mesh.name.includes('Empty'));
-          document.querySelector('.canvas__buttons--features').append(changeFeature(feature));
+          document.querySelector('.customization--features').append(changeFeature(feature));
         });
       }
     });

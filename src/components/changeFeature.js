@@ -5,14 +5,14 @@ export const changeFeature = (mesh) => {
 
   const fragment = document.createRange().createContextualFragment(
     ` 
-    <div class="canvas__button" id=${mesh.parent.name}>
+    <div class="customization__controller" id=${mesh.parent.name}>
 
       <button class="fa fa-angle-left"></button>
 
       ${!mesh.name.includes('None') 
       // 
       ? `
-      <div class="canvas__button__color">
+      <div class="customization__controller--color">
         <label for=${mesh.name}>${mesh.name} Color: </label>
         <input type="color" id=${mesh.name}" name=${mesh.name} value=${'#'+mesh?.material.color.getHexString()}>
       </div>
