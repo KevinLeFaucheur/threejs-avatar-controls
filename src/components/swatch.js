@@ -1,5 +1,4 @@
 import { changeMeshColor } from "../handlers/changeMeshColor";
-import { randomHexColor } from "../utils/randomHexColor";
 
 export const swatchMeshColors = (mesh) => {
 
@@ -33,7 +32,9 @@ export const swatchMeshColors = (mesh) => {
   fragment
     .querySelectorAll('.swatch__color')
     .forEach(element => element.onclick = () => {
-      changeMeshColor(mesh, window.getComputedStyle(element).getPropertyValue("background-color"))
+      const color = window.getComputedStyle(element).getPropertyValue("background-color");
+      changeMeshColor(mesh, color);
+      document.querySelector(`#input__color--${mesh.name}`).style.backgroundColor = color;
     });
   fragment.querySelector('.close').onclick = () => document.querySelector('.swatch__wrapper').classList.toggle('show');
   
