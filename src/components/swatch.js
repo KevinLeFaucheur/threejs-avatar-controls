@@ -23,9 +23,6 @@ export const swatchMeshColors = (mesh) => {
     `
   );
 
-  console.log(fragment.querySelectorAll(`.swatch__wrapper--${mesh.name} .swatch__color`));
-  console.log(mesh.name);
-
   fragment
     .querySelectorAll(`.swatch__wrapper--${mesh.name} .swatch__color`)
     .forEach(element => element.onclick = () => {
