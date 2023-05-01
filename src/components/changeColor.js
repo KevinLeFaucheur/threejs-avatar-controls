@@ -6,10 +6,12 @@ export const changeColor = (mesh, bool = false) => {
   const fragment = document.createRange().createContextualFragment(
     ` 
     <div class="customization__controller">
-      <label for=${mesh.name}>${mesh.name} Color: </label>
-      ${bool 
-        ? `<div class="customization__controller--color" id="${mesh.name}--color" style="background-color: ${'#'+mesh?.material.color.getHexString()}" id=${mesh.name}">&nbsp;</div>`
-        : `<input type="color" id=${mesh.name} name=${mesh.name} value=${'#'+mesh?.material.color.getHexString()}>`}
+      <div class="customization__controller--color">
+        <label for=${mesh.name}>${mesh.name} Color: </label>
+        ${bool 
+          ? `<div class="customization__controller--input" id="${mesh.name}--color" style="background-color: ${'#'+mesh?.material.color.getHexString()}" id=${mesh.name}">&nbsp;</div>`
+          : `<input type="color" id=${mesh.name} name=${mesh.name} value=${'#'+mesh?.material.color.getHexString()}>`}
+      </div>
     </div>
     `
   );
