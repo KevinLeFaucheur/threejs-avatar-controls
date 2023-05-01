@@ -45,10 +45,10 @@ const lightsFolder = gui.addFolder('Lights');
 lightsFolder.add(light, 'intensity', 0, 10, 0.1);
 
 // Light Helper
-const helper = new THREE.DirectionalLightHelper(directionalLight, 5);
-scene.add(helper);
-const cameraHelper = new THREE.CameraHelper(directionalLight.shadow.camera);
-scene.add(cameraHelper);
+// const helper = new THREE.DirectionalLightHelper(directionalLight, 5);
+// scene.add(helper);
+// const cameraHelper = new THREE.CameraHelper(directionalLight.shadow.camera);
+// scene.add(cameraHelper);
 
 // Geometry
 createMap(scene);
@@ -67,7 +67,7 @@ loader.load(
 
 		const avatar = gltf.scene;
 		avatar.name = 'JOHN';
-		const headColor = { color: skinColor() };
+		const bodyColor = { color: skinColor() };
 		const baseEyeColor = { color: '#FFF' };
 		const irisColor = { color: '#'+Math.floor(Math.random()*16777215).toString(16) };
 		const browsColor = { color: '#'+Math.floor(Math.random()*16777215).toString(16) };
@@ -86,7 +86,8 @@ loader.load(
 							avatarFolder.add(child, 'visible', true).name(child.name).onChange(() => child.visible = !child.visible); 
 							break;
 						case 'Head':
-							child.material = new THREE.MeshStandardMaterial(headColor);
+						case 'Hands':
+							child.material = new THREE.MeshStandardMaterial(bodyColor);
 							child.castShadow = true;
 							child.receiveShadow = true;
 							avatarFolder.add(child, 'visible', true).name(child.name).onChange(() => child.visible = !child.visible); 

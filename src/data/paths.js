@@ -3,5 +3,6 @@ export const avatars = [
 ];
 
 export const maps = [
-  './models/map.fbx'
+  './models/map.fbx',
+  './models/map2.fbx'
 ];

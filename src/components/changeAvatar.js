@@ -41,10 +41,12 @@ export const changeAvatar = (group, avatar, init = false) => {
       if(group.name === 'AVATAR') {
         group.children.forEach(mesh => {
           if(mesh.name === 'Body') return;
-          if(mesh.name === 'Head') { 
-            document.querySelector('.customization--avatar').append(changeColor(mesh, true));
-          }
-          else document.querySelector('.customization--avatar').append(changeColor(mesh));
+          document.querySelector('.customization--avatar').append(changeColor(mesh));
+        });
+      }
+      if(group.name === 'SKIN') {
+        group.children.forEach(mesh => {
+          document.querySelector('.customization--avatar').append(changeColor(mesh, true));
         });
       }
       if(group.name === 'EYES') {
@@ -55,8 +57,6 @@ export const changeAvatar = (group, avatar, init = false) => {
         });
       }
       if(group.name === 'FEATURES') {
-        // document.querySelector('.customization--add').append(addFeatureButton(group));
-
         group.children.forEach(subgroup => {
           const feature = subgroup.children.find(mesh => mesh.name.includes('Empty'));
           document.querySelector('.customization--features').append(changeFeature(feature));

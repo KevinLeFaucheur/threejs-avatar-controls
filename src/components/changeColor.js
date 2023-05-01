@@ -16,7 +16,7 @@ export const changeColor = (mesh, bool = false) => {
 
   if(bool) {
     fragment.querySelector('.customization__controller').append(swatchMeshColors(mesh));
-    fragment.querySelector(`#${mesh.name}--color`).onclick = () => document.querySelector('.swatch__wrapper').classList.toggle('show');
+    fragment.querySelector(`#${mesh.name}--color`).onclick = () => document.querySelector(`.swatch__wrapper--${mesh.name}`).classList.toggle('show');
   }
   else fragment.querySelector('input').onchange = () => changeMeshColor(mesh, event.target.value);
 

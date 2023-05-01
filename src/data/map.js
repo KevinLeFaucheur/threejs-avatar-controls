@@ -6,40 +6,45 @@ import { mapController } from '../components/map/mapController';
 export default (scene) => {
 
   // Map 
-  const map = new THREE.Group();
+  const sceneGroup = new THREE.Group();
+  const mapsGroup = new THREE.Group();
+  mapsGroup.name = 'Maps';
   
   const fbxLoader = new FBXLoader();
   
-  fbxLoader.load(
-    maps[0],
+  maps.forEach((map, index) => fbxLoader.load(
+    map,
     (object) => {
       object.traverse((mesh) => {
         if(mesh.name.toLowerCase().includes('tree')) {
-          mesh.material = new THREE.MeshStandardMaterial({ color: '#009900' });
+          mesh.material = new THREE.MeshStandardMaterial({ color: '#365412' });
+        }
+        else if(mesh.name.toLowerCase().includes('grass')) {
+          mesh.material = new THREE.MeshStandardMaterial({ color: '#365412' });
         }
         else {
           mesh.material = new THREE.MeshStandardMaterial({ color: '#FEFEFE' });
         }
         mesh.castShadow = true;
+        mesh.material.side = THREE.DoubleSide;
         // mesh.receiveShadow = true;
       })
-      // object.children[0].material = new THREE.MeshStandardMaterial({ color: '#005500' });
-      // object.children[0].castShadow = true;
-      // object.children[0].receiveShadow = true;
-      // object.children[0].position.set(
-      //   (Math.random() - 0.5) * 6, 
-      //   0,
-      //   (Math.random() - 0.5) * 3 - 10
-      // ); 
-      // map.add(object.children[0]);
-      map.add(object);
+
+      mapsGroup.add(object);
+
+      if(index === 0) {
+        let mapIndex = index + 1;
+        object.name = 'Map ' + mapIndex;
+        sceneGroup.add(object);
+        document.querySelector('.customization--map').append(mapController(object));
+      }
     },
     (xhr) => {
         console.log((xhr.loaded / xhr.total) * 100 + '% loaded');
     },
     (error) => {
         console.log(error);
-    }
+    })
   );
 
   // Grass
@@ -49,25 +54,10 @@ export default (scene) => {
   );
   grass.receiveShadow = true;
   grass.rotation.x = -Math.PI / 2;
-  // grass.position.y = -1;
-  map.add(grass);
-  map.name = 'Map 1';
+  // sceneGroup.add(grass);
+  sceneGroup.name = 'Maps';
   
-
-  document.querySelector('.customization--map').append(mapController(map));
-
-  // Tree
-  // const tree = new THREE.Mesh(
-  //   new THREE.ConeBufferGeometry(5, 15, 8, 16),
-  //   new THREE.MeshStandardMaterial({ color: '#005500' })
-  // );
-  // tree.castShadow = true;
-  // tree.receiveShadow = true;
-  // tree.position.set(
-  //   (Math.random() - 0.5) * 6, 
-  //   15 / 2,
-  //   (Math.random() - 0.5) * 3 - 10
-  // ); 
-
-  scene.add(map);
+  
+  scene.add(grass);
+  scene.add(sceneGroup);
 };
