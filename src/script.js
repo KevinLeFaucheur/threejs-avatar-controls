@@ -30,10 +30,13 @@ directionalLight.shadow.camera.right = 50; // default
 directionalLight.shadow.camera.top = 50; // default
 directionalLight.shadow.camera.bottom = -50; // default
 directionalLight.shadow.camera.near = 0.1; // default
-directionalLight.shadow.camera.far = 50 // default
+directionalLight.shadow.camera.far = 500 // default
 directionalLight.shadow.mapSize.width = 512; // default
 directionalLight.shadow.mapSize.height = 512; // default
 
+const characterLight = new THREE.DirectionalLight('#FFF', 0.4);
+characterLight.position.set(0, 0, 2);
+scene.add(characterLight);
 
 // Light GUI
 const lightsFolder = gui.addFolder('Lights');
@@ -53,10 +56,10 @@ scene.add(sun);
 document.querySelector('.customization--map').append(lightController(directionalLight, sun));
 
 // Light Helper
-const helper = new THREE.DirectionalLightHelper(directionalLight, 5);
-scene.add(helper);
-const cameraHelper = new THREE.CameraHelper(directionalLight.shadow.camera);
-scene.add(cameraHelper);
+// const helper = new THREE.DirectionalLightHelper(directionalLight, 5);
+// scene.add(helper);
+// const cameraHelper = new THREE.CameraHelper(directionalLight.shadow.camera);
+// scene.add(cameraHelper);
 
 // Geometry
 createMap(scene);
