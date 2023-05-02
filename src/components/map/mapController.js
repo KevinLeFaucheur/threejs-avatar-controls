@@ -1,4 +1,5 @@
-export const mapController = (map) => {
+export const mapController = (map, scene) => {
+  console.log(map, scene);
   const fragment = document.createRange().createContextualFragment(
     ` 
     <div id="customization__controller--map" class="customization__controller">
@@ -13,10 +14,13 @@ export const mapController = (map) => {
     `
   );
 
-  console.log(map);
-
-  fragment.querySelectorAll('#customization__controller--map > button').forEach(element => {
-    element.onclick = () => console.log(element)
+  fragment.querySelectorAll('#customization__controller--map > button').forEach((element, index) => {
+    element.onclick = () => {
+      let currentIndex = map.parent.children.findIndex(child => child.name === map.name);
+      console.log(currentIndex);
+      // console.log(element, index === 0 ? '-1' : '1');
+      // scene.add(map.parent.children[])
+    }
   });
 
   return fragment;

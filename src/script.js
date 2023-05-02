@@ -2,13 +2,10 @@ import './css/style.css'
 import * as THREE from 'three'
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls'
 import * as dat from 'dat.gui'
-import { FBXLoader } from "three/examples/jsm/loaders/FBXLoader";
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
 import { skinColor } from "./utils/skinColor";
 import { changeAvatar } from './components/changeAvatar';
 import createMap from './data/map'
-import createAvatars from './data/avatars'
-import { logAvatarGroup } from './debug/debugUtils';
 import { avatars } from './data/paths'
 import { lightController } from './components/map/lightController';
 
@@ -26,7 +23,7 @@ const light = new THREE.AmbientLight(0x505050); // soft white light
 scene.add(light);
 
 const directionalLight = new THREE.DirectionalLight('#FFF', 0.5);
-directionalLight.position.set(0, 10, 2);
+directionalLight.position.set(25, 100, -250);
 directionalLight.castShadow = true;
 directionalLight.shadow.camera.left = -50; // default
 directionalLight.shadow.camera.right = 50; // default
@@ -36,19 +33,30 @@ directionalLight.shadow.camera.near = 0.1; // default
 directionalLight.shadow.camera.far = 50 // default
 directionalLight.shadow.mapSize.width = 512; // default
 directionalLight.shadow.mapSize.height = 512; // default
-scene.add(directionalLight);
 
-document.querySelector('.customization--map').append(lightController(directionalLight));
 
 // Light GUI
 const lightsFolder = gui.addFolder('Lights');
 lightsFolder.add(light, 'intensity', 0, 10, 0.1);
 
+// Sun Mesh
+const sun = new THREE.Mesh(
+	new THREE.SphereBufferGeometry(10.0, 16, 32),
+	new THREE.MeshBasicMaterial({
+		color: '#FFF9DB'
+})
+);
+sun.material.flatShading = true
+sun.position.set(25, 100, -250);
+scene.add(directionalLight);
+scene.add(sun);
+document.querySelector('.customization--map').append(lightController(directionalLight, sun));
+
 // Light Helper
-// const helper = new THREE.DirectionalLightHelper(directionalLight, 5);
-// scene.add(helper);
-// const cameraHelper = new THREE.CameraHelper(directionalLight.shadow.camera);
-// scene.add(cameraHelper);
+const helper = new THREE.DirectionalLightHelper(directionalLight, 5);
+scene.add(helper);
+const cameraHelper = new THREE.CameraHelper(directionalLight.shadow.camera);
+scene.add(cameraHelper);
 
 // Geometry
 createMap(scene);
@@ -131,8 +139,6 @@ loader.load(
 
 		document.querySelector('.selectors').append(changeAvatar(avatarGroup, avatar, true));
 		avatarGroup.add(avatar);
-		console.log(avatarGroup);
-		document.getElementById('debug').append(logAvatarGroup(avatarGroup));
 
 		scene.add(avatar);
 	},
@@ -143,21 +149,6 @@ loader.load(
 			console.log(error);
 	}
 );
-
-// const loader = new FBXLoader();
-// const returnFBX = async () => {
-// 	return loader.load(
-// 		'./models/avatar_01.fbx',
-// 	 	(object) => {
-// 			return object;
-// 		}
-// 	);
-// }
-
-// let afterloadObject = returnFBX().then(data => data);
-// console.log(afterloadObject);
-
-// console.log(test);
 
 // Camera
 // const sizes = {

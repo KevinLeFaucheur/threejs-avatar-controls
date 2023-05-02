@@ -1,6 +1,6 @@
 import { Color } from "three";
 
-export const lightController = (light) => {
+export const lightController = (light, sun) => {
   const fragment = document.createRange().createContextualFragment(
     ` 
     <div class="customization__controller">
@@ -12,14 +12,22 @@ export const lightController = (light) => {
   );
 
 	fragment.getElementById('customization__controller--light').oninput = (e) => {
-		light.position.set(Math.sin(e.target.value * Math.PI / 2) * 100, Math.cos(e.target.value * Math.PI / 2) * 100, 0);
+		let arcPosition = {
+			x: Math.sin(e.target.value * Math.PI / 2) * 150,
+			y: Math.cos(e.target.value * Math.PI / 2) * 150, 
+			z: -250
+		};
+		light.position.set(arcPosition.x, arcPosition.y, arcPosition.z);
+		sun.position.set(arcPosition.x, arcPosition.y, arcPosition.z);
+		light.lookAt(0, 0, 0);
 
 		let lerpValue = 1 - Math.abs(e.target.value);
 		
 		if(light.position.y > 50) {
 			light.color = new Color('#FFF');
+			sun.material.color = new Color('#FFF');
 		}
-		else if(light.position.y <= 50 && light.position.y > 25) {
+		else if(light.position.y <= 100 && light.position.y > 25) {
 			// let blue = lerp(light.color.b, 0, 1);
 			// let green = lerp(light.color.g, 140, 1);
 			// light.color = new Color(`rgb(255, ${Math.floor(green)}, ${Math.floor(blue )})`);
@@ -27,6 +35,7 @@ export const lightController = (light) => {
 			let blue = 255 * lerpValue;
 			let green = Math.min(255, 255 * lerpValue + 140);
 			light.color = new Color(`rgb(255, ${Math.floor(green)}, ${Math.floor(blue )})`);
+			sun.material.color = new Color(`rgb(255, ${Math.floor(green)}, ${Math.floor(blue )})`);
 		}
 		else {
 			// let red = lerp(light.color.r, 0, 0.1);
