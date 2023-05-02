@@ -18,6 +18,7 @@ export const mapController = (map, scene) => {
     element.onclick = () => {
       let currentIndex = map.parent.children.findIndex(child => child.name === map.name);
       console.log(currentIndex);
+      
       // console.log(element, index === 0 ? '-1' : '1');
       // scene.add(map.parent.children[])
     }

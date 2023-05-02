@@ -67,7 +67,6 @@ export const changeAvatar = (group, avatar, init = false) => {
 
   if(init) {
     group.add(avatar);
-    console.log(group);
     reloadAvatarUI(avatar);
     fragment.querySelector('.avatar--name').textContent = avatar.name;
   }

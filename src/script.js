@@ -3,11 +3,11 @@ import * as THREE from 'three'
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls'
 import * as dat from 'dat.gui'
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
-import { skinColor } from "./utils/skinColor";
 import { changeAvatar } from './components/changeAvatar';
 import createMap from './data/map'
 import { avatars } from './data/paths'
 import { lightController } from './components/map/lightController';
+import { skinColors } from './data/colors';
 
 
 // GUI
@@ -85,7 +85,7 @@ loader.load(
 
 		const avatar = gltf.scene;
 		avatar.name = 'JOHN';
-		const bodyColor = { color: skinColor() };
+		const bodyColor = { color: skinColors[Math.floor(Math.random()*skinColors.length)] };
 		const baseEyeColor = { color: '#FFF' };
 		const irisColor = { color: '#'+Math.floor(Math.random()*16777215).toString(16) };
 		const browsColor = { color: '#'+Math.floor(Math.random()*16777215).toString(16) };

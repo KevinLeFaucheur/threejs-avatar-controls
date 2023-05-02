@@ -19,8 +19,6 @@ export default (scene) => {
       let mapIndex = index + 1;
       object.name = 'Map ' + mapIndex;
 
-      console.log(object);
-
       switch (object.name) {
         case 'Map 1':
           object.traverse(mesh => {
