@@ -45,15 +45,22 @@ lightsFolder.add(light, 'intensity', 0, 10, 0.1);
 // Sun Mesh
 const sun = new THREE.Mesh(
 	new THREE.SphereBufferGeometry(10.0, 16, 32),
-	new THREE.MeshBasicMaterial({
+	new THREE.MeshStandardMaterial({
 		color: '#FFF9DB'
 })
 );
-sun.material.flatShading = true
+sun.material.emissive = new THREE.Color('#FFDDDD');
 sun.position.set(25, 100, -250);
 scene.add(directionalLight);
 scene.add(sun);
-document.querySelector('.customization--map').append(lightController(directionalLight, sun));
+
+const sky = {
+	color: scene.background,
+	light: directionalLight,
+	sun
+}
+
+document.querySelector('.customization--map').append(lightController(sky));
 
 // Light Helper
 // const helper = new THREE.DirectionalLightHelper(directionalLight, 5);
@@ -199,6 +206,7 @@ const tick = () => {
     
 	const elapsedTime = clock.getElapsedTime();
 	controls.update();
+	scene.background.copy(sky.color);
 	renderer.render(scene, camera);
 	window.requestAnimationFrame(tick);
 

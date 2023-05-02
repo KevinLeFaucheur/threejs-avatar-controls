@@ -1,6 +1,6 @@
 import { Color } from "three";
 
-export const lightController = (light, sun) => {
+export const lightController = ({ color, light, sun }) => {
   const fragment = document.createRange().createContextualFragment(
     ` 
     <div class="customization__controller">
@@ -23,31 +23,46 @@ export const lightController = (light, sun) => {
 
 		let lerpValue = 1 - Math.abs(e.target.value);
 		
-		if(light.position.y > 50) {
-			light.color = new Color('#FFF');
-			sun.material.color = new Color('#FFF');
-		}
-		else if(light.position.y <= 100 && light.position.y > 25) {
-			// let blue = lerp(light.color.b, 0, 1);
-			// let green = lerp(light.color.g, 140, 1);
-			// light.color = new Color(`rgb(255, ${Math.floor(green)}, ${Math.floor(blue )})`);
-			
-			let blue = 255 * lerpValue;
-			let green = Math.min(255, 255 * lerpValue + 140);
-			light.color = new Color(`rgb(255, ${Math.floor(green)}, ${Math.floor(blue )})`);
-			sun.material.color = new Color(`rgb(255, ${Math.floor(green)}, ${Math.floor(blue )})`);
-		}
-		else {
-			// let red = lerp(light.color.r, 0, 0.1);
-			// let green = lerp(light.color.g, 30, 0.1);
-			// let blue = lerp(light.color.b, 55, 0.1);
-			// light.color = new Color(`rgb(${Math.floor(red)}, ${Math.floor(green)}, ${Math.floor(blue )})`);
+		// let blue = 255 * lerpValue;
+		// let green = Math.min(255, 255 * lerpValue + 140);
 
-			let red = Math.min(255, 255 * lerpValue);
-			let green = Math.min(255, 255 * lerpValue + 30);
-			let blue = Math.min(255, 255 * lerpValue + 75);
-			light.color = new Color(`rgb(${Math.floor(red)}, ${Math.floor(green)}, ${Math.floor(blue )})`);
+		// let red = Math.min(255, 255 * lerpValue);
+		// let green = Math.min(255, 255 * lerpValue + 30);
+		// let blue = Math.min(255, 255 * lerpValue + 75);
+
+		const skyColors = {
+			noon: new Color(0.4, 0.7, 1),
+			twilight: new Color(`rgb(255, 162, 0)`),
+			night: new Color(`rgb(2, 17, 64)`)
 		}
+
+		const sunColors = {
+			noon: new Color('#FFF'),
+			twilight: new Color(`rgb(255, 162, 0)`),
+			night: new Color(`rgb(2, 17, 64)`)
+		}
+
+		light.color.copy(sunColors.twilight).lerp(sunColors.noon, lerpValue);
+		sun.material.color.copy(sunColors.twilight).lerp(sunColors.noon, lerpValue);
+		sun.material.emissive.copy(sunColors.twilight).lerp(sunColors.noon, lerpValue);
+		color.copy(skyColors.twilight).lerp(skyColors.noon, lerpValue);
+
+		if(light.position.y < 50 && light.position.y >= 25) 
+		{
+			light.color.copy(sunColors.twilight).lerp(sunColors.noon, lerpValue);
+			sun.material.color.copy(sunColors.twilight).lerp(sunColors.noon, lerpValue);
+			sun.material.emissive.copy(sunColors.twilight).lerp(sunColors.noon, lerpValue);
+			color.copy(skyColors.twilight).lerp(skyColors.noon, lerpValue);
+		}
+		else if(light.position.y < 25) {
+			const lerpFactor = Math.min(1, light.position.y / 25);
+			
+			light.color.copy(sunColors.night).lerp(sunColors.twilight, lerpFactor);
+			sun.material.color.copy(sunColors.night).lerp(sunColors.twilight, lerpFactor);
+			sun.material.emissive.copy(sunColors.night).lerp(sunColors.twilight, lerpFactor);
+			color.copy(skyColors.night).lerp(skyColors.twilight, lerpFactor);
+		}
+			
 	}
 
 	const intToHex = (int) => {
