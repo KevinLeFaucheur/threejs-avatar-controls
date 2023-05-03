@@ -1,14 +1,14 @@
-import './css/style.css'
-import * as THREE from 'three'
-import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls'
-import * as dat from 'dat.gui'
-import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
-import { changeAvatar } from './components/changeAvatar';
-import createMap from './data/map'
-import { avatars } from './data/paths'
+import './css/style.css';
+import * as THREE from 'three';
+import * as dat from 'dat.gui';
+import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
+import createMap from './data/map';
 import { lightController } from './components/map/lightController';
-import { skinColors } from './data/colors';
+import { avatarLoad } from './components/avatar/avatarLoader';
+import { avatars } from './data/paths';
+import { changeAvatar } from './components/changeAvatar';
 
+import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
 
 // GUI
 const gui = new dat.GUI({ width: 340 });
@@ -76,90 +76,46 @@ avatarGroup.name = 'avatars';
 scene.add(avatarGroup);
 
 // Avatar GUI
-const avatarFolder = gui.addFolder('Avatar');
+// const avatarFolder = gui.addFolder('Avatar');
 
-const loader = new GLTFLoader();
-loader.load(
-	avatars[0],
-	(gltf) => {
+// let avatarAsync;
+// const init = async () => {
+// 	return Promise.resolve(avatarLoad(avatars[0]));
+// }
 
-		const avatar = gltf.scene;
-		avatar.name = 'JOHN';
-		const bodyColor = { color: skinColors[Math.floor(Math.random()*skinColors.length)] };
-		const baseEyeColor = { color: '#FFF' };
-		const irisColor = { color: '#'+Math.floor(Math.random()*16777215).toString(16) };
-		const browsColor = { color: '#'+Math.floor(Math.random()*16777215).toString(16) };
-		
-		const configMesh = (avatar) => {
-			avatar.traverse(child => {
-				if(child instanceof THREE.Mesh) {
-					switch(child.name) {
-						// case 'Body':
-						case 'Belt':
-						case 'Shirt':
-						case 'Pants':
-							child.material = new THREE.MeshStandardMaterial({ color: '#'+Math.floor(Math.random()*16777215).toString(16) });
-							child.castShadow = true;
-							child.receiveShadow = true;
-							avatarFolder.add(child, 'visible', true).name(child.name).onChange(() => child.visible = !child.visible); 
-							break;
-						case 'Head':
-						case 'Hands':
-							child.material = new THREE.MeshStandardMaterial(bodyColor);
-							child.castShadow = true;
-							child.receiveShadow = true;
-							avatarFolder.add(child, 'visible', true).name(child.name).onChange(() => child.visible = !child.visible); 
-							break;
-						case 'Base':
-							child.material = new THREE.MeshStandardMaterial(baseEyeColor);
-							child.castShadow = true;
-							child.receiveShadow = true;
-							avatarFolder.add(child, 'visible', true).name(child.name).onChange(() => child.visible = !child.visible); 
-							break;
-						case 'Iris':
-							child.material = new THREE.MeshStandardMaterial(irisColor);
-							child.castShadow = true;
-							child.receiveShadow = true;
-							avatarFolder.add(child, 'visible', true).name(child.name).onChange(() => child.visible = !child.visible); 
-							break;
-						case 'Brows':
-							child.material = new THREE.MeshStandardMaterial(browsColor);
-							child.castShadow = true;
-							child.receiveShadow = true;
-							avatarFolder.add(child, 'visible', true).name(child.name).onChange(() => child.visible = !child.visible); 
-							break;
-						default:
-							child.material = new THREE.MeshStandardMaterial({ color: '#'+Math.floor(Math.random()*16777215).toString(16) });
-							child.castShadow = true;
-							child.receiveShadow = true;
-							child.visible = false;
-							if(['Glasses', 'Cap'].some(string => child.name.includes(string))) {
-								child.material.side = THREE.DoubleSide;
-							}
-							// console.log(child);
-							if(!child.name.includes('_') && !child.name.includes('Empty') ) {
-									avatarFolder.add(child, 'visible', child.visible).name(child.name).onChange(() => child.visible = !child.visible); 
-							}
-					}
-				}
-			});
-		};
-		
-		configMesh(avatar);
+// init()
+// 	.then(data => {
+// 		console.log(data);
+// 		document.querySelector('.selectors').append(changeAvatar(avatarGroup, data, true));
+// 		avatarGroup.add(data);
+// 		scene.add(data);
+// });
 
-		document.querySelector('.selectors').append(changeAvatar(avatarGroup, avatar, true));
-		avatarGroup.add(avatar);
+const load = () => {
+	return new Promise((resolve, reject) => {
+	
+		const loader = new GLTFLoader();
+		loader.load(avatars[0], (object) => {
+			resolve(object);
+		});
 
-		scene.add(avatar);
-	},
-	(xhr) => {
-			console.log((xhr.loaded / xhr.total) * 100 + '% loaded');
-	},
-	(error) => {
-			console.log(error);
-	}
-);
+	});
+}
 
+load().then( (object) => { 
+
+	avatarLoad(object);
+	object.scene.name = 'JOHN';
+	console.log(object.scene);
+	avatarGroup.add(object.scene);
+	scene.add(object.scene);
+	console.log(avatarGroup);
+	document.querySelector('.selectors').append(changeAvatar(avatarGroup, object.scene, true));
+
+});
+// const res = await load();
+
+// res is object now
 // Camera
 // const sizes = {
 //     width: window.innerWidth / 1.5,

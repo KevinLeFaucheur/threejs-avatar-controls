@@ -1,5 +1,5 @@
 import { changeMeshColor } from "../handlers/changeMeshColor";
-import { skinColors } from "../data/colors";
+import { skinColors } from "../data/avatarConfig";
 
 export const swatchMeshColors = (mesh) => {
 
@@ -11,9 +11,7 @@ export const swatchMeshColors = (mesh) => {
         <button class="far fa-regular fa-x close">x</button>
       </div>
       <div class="swatch__container swatch__container--${mesh.name}">
-        ${skinColors.forEach(color => {
-          `<div class="swatch__color" style="background-color: ${color}" id=${mesh.name}">&nbsp;</div>`
-        })}
+        ${skinColors.map(color => `<div class="swatch__color" style="background-color: ${color}" id=${mesh.name}>&nbsp;</div>` ).join('')}
       </div>
     </div>
     `
@@ -27,8 +25,13 @@ export const swatchMeshColors = (mesh) => {
       changeMeshColor(mesh, color);
       document.getElementById(`${mesh.name}--color`).style.backgroundColor = color;
     });
+    
   fragment.querySelector('.close').onclick = () => document.querySelector(`.swatch__wrapper--${mesh.name}`).classList.toggle('show');
-  
+
+  // skinColors.forEach(color => {
+  //   fragment.querySelector('.swatch__container').append(`<div class="swatch__color" style="background-color: ${color}" id=${mesh.name}>&nbsp;</div>`);
+  // });
+
   // window.addEventListener('click', function(e){   
   //   if (document.querySelector('.canvas__button').contains(e.target)) {
   //   } else {
