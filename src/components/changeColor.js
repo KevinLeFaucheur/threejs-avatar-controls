@@ -9,8 +9,13 @@ export const changeColor = (mesh, isSwatch = false) => {
       <div class="customization__controller--color">
         <label for=${mesh.name}>${mesh.name} Color: </label>
         ${isSwatch 
-          ? `<div class="customization__controller--input" id="${mesh.name}--color" style="background-color: ${'#'+mesh?.material.color.getHexString()}" id=${mesh.name}">&nbsp;</div>`
-          : `<input type="color" id=${mesh.name} name=${mesh.name} value=${'#'+mesh?.material.color.getHexString()}>`}
+          ? `<div class="customization__controller--input" id="${mesh.name}--color" style="background-color: ${'#'+mesh?.material.color.getHexString()}">&nbsp;</div>`
+          : `
+            <div class="customization__controller--input" id="${mesh.name}--color" style="background-color: ${'#'+mesh?.material.color.getHexString()}">
+              <i class="fa fa-palette"></i>
+            </div>
+            <input type="color" id=${mesh.name} name=${mesh.name} value=${'#'+mesh?.material.color.getHexString()}>
+            `}
       </div>
     </div>
     `

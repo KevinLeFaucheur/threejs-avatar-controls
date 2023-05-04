@@ -2,22 +2,20 @@ import './css/style.css';
 import * as THREE from 'three';
 import * as dat from 'dat.gui';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
-import createMap from './data/map';
+
 import { lightController } from './components/map/lightController';
 import { avatarLoad } from './components/avatar/avatarLoader';
 import { avatars, maps } from './data/paths';
 import { changeAvatar } from './components/changeAvatar';
-
-import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
-import { FBXLoader } from 'three/examples/jsm/loaders/FBXLoader';
 import { mapController } from './components/map/mapController';
 import { mapLoad } from './components/map/mapLoader';
+import { load } from './utils/threejsUtils';
 
 // GUI
 const gui = new dat.GUI({ width: 340 });
 
 // Scene
-const scene = new THREE.Scene();
+export const scene = new THREE.Scene();
 scene.background = new THREE.Color(0.4, 0.7, 1);
 const canvas = document.querySelector('.webgl');
 
@@ -71,64 +69,36 @@ document.querySelector('.customization--map').append(lightController(sky));
 // const cameraHelper = new THREE.CameraHelper(directionalLight.shadow.camera);
 // scene.add(cameraHelper);
 
-// Geometry
-// createMap(scene);
-//
-
-const mapGroup = new THREE.Group();
+// Maps Group and load first map
+export const mapGroup = new THREE.Group();
 mapGroup.name = 'Maps';
 scene.add(mapGroup);
 
-const loadMap = () => {
-	return new Promise((resolve, reject) => {
-	
-		const loader = new FBXLoader();
-		loader.load(maps[0], (object) => {
-			resolve(object);
-		});
-
-	});
-}
-
-loadMap().then((map) => { 
+load(maps[0]).then((object) => { 
+	let { scene: map } = object;
 
 	map.name = 'Map 1';
 	mapLoad(map);
 	mapGroup.add(map);
 	scene.add(map);
 	document.querySelector('.customization--map').append(mapController(map, scene));
-
 });
 
-//
-const avatarGroup = new THREE.Group();
-avatarGroup.name = 'avatars';
+// Avatar Group and load first avatar
+export const avatarGroup = new THREE.Group();
+avatarGroup.name = 'Avatars';
 scene.add(avatarGroup);
 
-const load = () => {
-	return new Promise((resolve, reject) => {
-	
-		const loader = new GLTFLoader();
-		loader.load(avatars[0], (object) => {
-			resolve(object);
-		});
+load(avatars[0]).then((object) => { 
+	let { scene: avatar } = object;
 
-	});
-}
-
-load().then((object) => { 
-
-	avatarLoad(object);
-	object.scene.name = 'JOHN';
-	avatarGroup.add(object.scene);
-	scene.add(object.scene);
-	document.querySelector('.selectors').append(changeAvatar(avatarGroup, object.scene, true));
-
+	avatarLoad(avatar);
+	avatar.name = 'JOHN';
+	avatarGroup.add(avatar);
+	scene.add(avatar);
+	document.querySelector('.selectors').append(changeAvatar(avatarGroup, avatar, true));
 });
 
-// const res = await load();
-
-// res is object now
 // Camera
 // const sizes = {
 //     width: window.innerWidth / 1.5,

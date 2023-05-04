@@ -67,6 +67,11 @@ main {
       border-radius: 5px;
       width: 26px;
       height: 26px;
+
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: rgb(0, 0, 0);
     }
   
     p {
@@ -115,7 +120,7 @@ main {
         border-radius: 50%;
         background: lighten($color-primary, 40);
         cursor: pointer;
-        // background: url('~/icons/sun.svg');
+        // background: url('/static/icons/sun.svg');
       }
 
       &:hover {

@@ -1,12 +1,7 @@
 import * as THREE from 'three';
+import { setupMesh } from '../../utils/threejsUtils';
 
 export const mapLoad = (map) => {
-  const setupMesh = (mesh, color, doubleSide = false) => {
-    mesh.material = new THREE.MeshStandardMaterial({ color });
-    mesh.castShadow = true;
-    mesh.receiveShadow = true;
-    if(doubleSide) mesh.material.side = THREE.DoubleSide;
-   }
 
   switch (map.name) {
     case 'Map 1':
@@ -32,10 +27,13 @@ export const mapLoad = (map) => {
           setupMesh(mesh, '#4ED068', true);
         }
         else if(mesh.name.toLowerCase().includes('branch')) {
-          setupMesh(mesh, '#4ED068');
+          setupMesh(mesh, '#4ED068', true);
         }
         else if(mesh.name.toLowerCase().includes('trunk')) {
           setupMesh(mesh, '#B67C3A');
+        }
+        else if(mesh.name.toLowerCase().includes('fern')) {
+          setupMesh(mesh, '#4ED068', true);
         }
         else {
           setupMesh(mesh, '#4ED068');

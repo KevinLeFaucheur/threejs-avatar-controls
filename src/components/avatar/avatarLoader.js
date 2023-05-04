@@ -1,17 +1,11 @@
-// import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
+import * as THREE from 'three';
 import { avatarConfig } from '../../data/avatarConfig';
 import { randomHexColor } from "../../utils/randomHexColor";
-import * as THREE from 'three';
+import { setupMesh } from '../../utils/threejsUtils';
 
-export const avatarLoad = (gltf) => {
-  const setupMesh = (mesh, color) => {
-    mesh.material = new THREE.MeshStandardMaterial({ color });
-    mesh.castShadow = true;
-    mesh.receiveShadow = true;
-    // avatarFolder.add(mesh, 'visible', true).name(mesh.name).onChange(() => mesh.visible = !mesh.visible); 
-  }
+export const avatarLoad = (avatar) => {
   
-  gltf.scene.traverse(child => {
+  avatar.traverse(child => {
     if(child instanceof THREE.Mesh) {
       switch(child.name) {
         case 'Belt':
