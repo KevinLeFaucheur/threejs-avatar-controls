@@ -5,7 +5,7 @@ export const lightController = ({ color, light, sun }) => {
     ` 
     <div class="customization__controller">
 			<input 
-				type="range" min="-1" max="1" value="0.5" step="0.01" 
+				type="range" min="-1" max="1" value="0" step="0.01" 
 				class="slider" id="customization__controller--light">
     </div>
     `

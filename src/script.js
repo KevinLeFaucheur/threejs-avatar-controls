@@ -5,10 +5,13 @@ import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
 import createMap from './data/map';
 import { lightController } from './components/map/lightController';
 import { avatarLoad } from './components/avatar/avatarLoader';
-import { avatars } from './data/paths';
+import { avatars, maps } from './data/paths';
 import { changeAvatar } from './components/changeAvatar';
 
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
+import { FBXLoader } from 'three/examples/jsm/loaders/FBXLoader';
+import { mapController } from './components/map/mapController';
+import { mapLoad } from './components/map/mapLoader';
 
 // GUI
 const gui = new dat.GUI({ width: 340 });
@@ -69,27 +72,38 @@ document.querySelector('.customization--map').append(lightController(sky));
 // scene.add(cameraHelper);
 
 // Geometry
-createMap(scene);
+// createMap(scene);
+//
 
+const mapGroup = new THREE.Group();
+mapGroup.name = 'Maps';
+scene.add(mapGroup);
+
+const loadMap = () => {
+	return new Promise((resolve, reject) => {
+	
+		const loader = new FBXLoader();
+		loader.load(maps[0], (object) => {
+			resolve(object);
+		});
+
+	});
+}
+
+loadMap().then((map) => { 
+
+	map.name = 'Map 1';
+	mapLoad(map);
+	mapGroup.add(map);
+	scene.add(map);
+	document.querySelector('.customization--map').append(mapController(map, scene));
+
+});
+
+//
 const avatarGroup = new THREE.Group();
 avatarGroup.name = 'avatars';
 scene.add(avatarGroup);
-
-// Avatar GUI
-// const avatarFolder = gui.addFolder('Avatar');
-
-// let avatarAsync;
-// const init = async () => {
-// 	return Promise.resolve(avatarLoad(avatars[0]));
-// }
-
-// init()
-// 	.then(data => {
-// 		console.log(data);
-// 		document.querySelector('.selectors').append(changeAvatar(avatarGroup, data, true));
-// 		avatarGroup.add(data);
-// 		scene.add(data);
-// });
 
 const load = () => {
 	return new Promise((resolve, reject) => {
@@ -102,17 +116,16 @@ const load = () => {
 	});
 }
 
-load().then( (object) => { 
+load().then((object) => { 
 
 	avatarLoad(object);
 	object.scene.name = 'JOHN';
-	console.log(object.scene);
 	avatarGroup.add(object.scene);
 	scene.add(object.scene);
-	console.log(avatarGroup);
 	document.querySelector('.selectors').append(changeAvatar(avatarGroup, object.scene, true));
 
 });
+
 // const res = await load();
 
 // res is object now
