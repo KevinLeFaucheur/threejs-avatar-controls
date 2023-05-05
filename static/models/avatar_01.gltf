@@ -133,11 +133,11 @@
         },
         {
             "mesh" : 12,
-            "name" : "Hands"
+            "name" : "Hands_skin"
         },
         {
             "mesh" : 13,
-            "name" : "Head"
+            "name" : "Head_skin"
         },
         {
             "children" : [

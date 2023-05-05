@@ -1,0 +1,45 @@
+[
+  {
+    "name": "Map 1",
+    "path": "./models/map_1.gltf",
+    "meshes": [
+      { 
+        "name": "tree",
+        "color": "#365412"
+      },
+      { 
+        "name": "grass",
+        "color": "#365412"
+      }
+    ]
+  },
+  {
+    "name": "Map 2",
+    "path": "./models/map_2.gltf",
+    "meshes": [
+      { 
+        "name": "fruit",
+        "color": "#7B4D4C"
+      },
+      { 
+        "name": "leaves",
+        "color": "#4ED068",
+        "double-sided": true
+      },
+      { 
+        "name": "branch",
+        "color": "#4ED068",
+        "double-sided": true
+      },
+      { 
+        "name": "trunk",
+        "color": "#B67C3A"
+      },
+      { 
+        "name": "fern",
+        "color": "#4ED068",
+        "double-sided": true
+      }
+    ]
+  }
+]

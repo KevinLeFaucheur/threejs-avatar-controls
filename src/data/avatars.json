@@ -1,0 +1,37 @@
+[
+  {
+    "name": "JOHN",
+    "path": "./models/avatar_01.gltf",
+    "meshes": [
+      { 
+        "name": "Belt"
+      },
+      { 
+        "name": "Shirt"
+      },
+      { 
+        "name": "Pants"
+      },
+      { 
+        "name": "Skin"
+      },
+      { 
+        "name": "Base"
+      },
+      { 
+        "name": "Iris"
+      },
+      { 
+        "name": "Brows"
+      },
+      { 
+        "name": "Glasses",
+        "double-sided": true
+      },
+      { 
+        "name": "Cap",
+        "double-sided": true
+      }
+    ]
+  }
+]

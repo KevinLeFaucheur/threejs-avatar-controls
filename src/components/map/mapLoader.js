@@ -1,49 +1,17 @@
 import * as THREE from 'three';
 import { setupMesh } from '../../utils/threejsUtils';
+import maps from '../../data/maps.json';
 
 export const mapLoad = (map) => {
 
-  switch (map.name) {
-    case 'Map 1':
-      map.traverse(mesh => {
-        if(mesh.name.toLowerCase().includes('tree')) {
-          setupMesh(mesh, '#365412');
-        }
-        else if(mesh.name.toLowerCase().includes('grass')) {
-          setupMesh(mesh, '#365412');
-        }
-        else {
-          setupMesh(mesh, '#FEFEFE');
-        }
-      })
-      break;
+  let mapFile = maps.find(object => object.name === map.name);
 
-    case 'Map 2':
-      map.traverse(mesh => {
-        if(mesh.name.toLowerCase().includes('fruit')) {
-          setupMesh(mesh, '#7B4D4C');
-        }
-        else if(mesh.name.toLowerCase().includes('leaves')) {
-          setupMesh(mesh, '#4ED068', true);
-        }
-        else if(mesh.name.toLowerCase().includes('branch')) {
-          setupMesh(mesh, '#4ED068', true);
-        }
-        else if(mesh.name.toLowerCase().includes('trunk')) {
-          setupMesh(mesh, '#B67C3A');
-        }
-        else if(mesh.name.toLowerCase().includes('fern')) {
-          setupMesh(mesh, '#4ED068', true);
-        }
-        else {
-          setupMesh(mesh, '#4ED068');
-        }
-      })
-      break;
-
-    default:
-      break;
-  }
+  map.traverse(currentMesh => {
+    let meshConfig = mapFile.meshes.find(mesh => currentMesh.name.toLowerCase().includes(mesh.name));
+    if(meshConfig) {
+      setupMesh(currentMesh, meshConfig.color, meshConfig['double-sided']);
+    }
+  });
 
   // Grass
   const grass = new THREE.Mesh(

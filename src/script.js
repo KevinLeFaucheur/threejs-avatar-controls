@@ -91,8 +91,8 @@ scene.add(avatarGroup);
 load(avatars[0]).then((object) => { 
 	let { scene: avatar } = object;
 
-	avatarLoad(avatar);
 	avatar.name = 'JOHN';
+	avatarLoad(avatar);
 	avatarGroup.add(avatar);
 	document.querySelector('.selectors').append(changeAvatar(avatarGroup, avatar, true));
 });
