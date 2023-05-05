@@ -11,9 +11,6 @@ export const changeColor = (mesh, isSwatch = false) => {
         ${isSwatch 
           ? `<div class="customization__controller--input" id="${mesh.name}--color" style="background-color: ${'#'+mesh?.material.color.getHexString()}">&nbsp;</div>`
           : `
-            <div class="customization__controller--input" id="${mesh.name}--color" style="background-color: ${'#'+mesh?.material.color.getHexString()}">
-              <i class="fa fa-palette"></i>
-            </div>
             <input type="color" id=${mesh.name} name=${mesh.name} value=${'#'+mesh?.material.color.getHexString()}>
             `}
       </div>
@@ -32,3 +29,8 @@ export const changeColor = (mesh, isSwatch = false) => {
 
   return fragment;
 };
+
+
+{/* <div class="customization__controller--input" id="${mesh.name}--color" style="background-color: ${'#'+mesh?.material.color.getHexString()}">
+<i class="fa fa-palette"></i>
+</div> */}

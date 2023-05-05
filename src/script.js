@@ -80,8 +80,7 @@ load(maps[0]).then((object) => {
 	map.name = 'Map 1';
 	mapLoad(map);
 	mapGroup.add(map);
-	scene.add(map);
-	document.querySelector('.customization--map').append(mapController(map, scene));
+	document.querySelector('.customization--map').append(mapController(map, mapGroup));
 });
 
 // Avatar Group and load first avatar
@@ -95,7 +94,6 @@ load(avatars[0]).then((object) => {
 	avatarLoad(avatar);
 	avatar.name = 'JOHN';
 	avatarGroup.add(avatar);
-	scene.add(avatar);
 	document.querySelector('.selectors').append(changeAvatar(avatarGroup, avatar, true));
 });
 
