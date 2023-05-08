@@ -63,7 +63,6 @@ export const avatarController = (avatar, group) => {
       load(avatars[avatarIndex]).then((object) => { 
         let { scene: avatar } = object;
 
-        avatar.name = `${avatarNames[Math.floor(Math.random() * (avatarNames.length-1))]}`;
         avatarLoad(avatar);
         group.add(avatar);
 

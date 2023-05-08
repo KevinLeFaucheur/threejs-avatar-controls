@@ -92,8 +92,6 @@ scene.add(avatarGroup);
 load(avatars[0]).then((object) => { 
 	let { scene: avatar } = object;
 
-	console.log(avatarNames);
-
 	avatar.name = `${avatarNames[Math.floor(Math.random() * (avatarNames.length-1))]}`;
 	avatarLoad(avatar);
 	avatarGroup.add(avatar);

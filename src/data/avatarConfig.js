@@ -1,7 +1,10 @@
 import { randomHexColor } from "../utils/randomHexColor";
 
 export const avatarNames = [
-  'JOHN', 'BOB', 'MARTY', 'MIKE'
+  'JOHN', 'UMAR', 'MARTY', 'MIKE',
+  'KEN', 'YASIN', 'JERRY', 'GLENN',
+  'JESSE', 'KHALID', 'OLIVER', 'LARRY',
+  'ARON', 'SHAWN', 'MELVIN', 'AMIR',
 ];
 
 export const skinColors = [
@@ -10,11 +13,11 @@ export const skinColors = [
 ];
 
 export const avatarConfig = {
-  name: avatarNames[Math.floor(Math.random()*avatarNames.length)],
+  name: () => avatarNames[Math.floor(Math.random()*avatarNames.length)],
   colors: {
-    skin: skinColors[Math.floor(Math.random()*skinColors.length)],
+    skin: () => skinColors[Math.floor(Math.random()*skinColors.length)],
     eye: '#FFF',
-    iris: randomHexColor(),
-    brows: randomHexColor(),
+    iris: () => randomHexColor(),
+    brows: () => randomHexColor(),
   }
 };

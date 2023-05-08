@@ -39,6 +39,14 @@
         "name": "fern",
         "color": "#4ED068",
         "double-sided": true
+      },
+      { 
+        "name": "water",
+        "color": "#4474A2"
+      },
+      { 
+        "name": "sand",
+        "color": "#F3E1B4"
       }
     ]
   }

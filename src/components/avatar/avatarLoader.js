@@ -35,6 +35,18 @@ export const avatarLoad = (avatar) => {
   //     }
   //   }
   // });
+
+  let newAvatarConfig = {
+    name: avatarConfig.name(),
+    colors: {
+      skin: avatarConfig.colors.skin(),
+      eye: avatarConfig.colors.eye,
+      iris: avatarConfig.colors.iris(),
+      brows: avatarConfig.colors.brows(),
+    }
+  };
+
+  avatar.name = newAvatarConfig.name;
   
   avatar.traverse(child => {
     if(child instanceof THREE.Mesh) {
@@ -46,16 +58,16 @@ export const avatarLoad = (avatar) => {
           break;
         case 'Head_skin':
         case 'Hands_skin':
-          setupMesh(child, avatarConfig.colors.skin);
+          setupMesh(child, newAvatarConfig.colors.skin);
           break;
         case 'Base':
-          setupMesh(child, avatarConfig.colors.eye);
+          setupMesh(child, newAvatarConfig.colors.eye);
           break;
         case 'Iris':
-          setupMesh(child, avatarConfig.colors.iris);
+          setupMesh(child, newAvatarConfig.colors.iris);
           break;
         case 'Brows':
-          setupMesh(child, avatarConfig.colors.brows);
+          setupMesh(child, newAvatarConfig.colors.brows);
           break;
         default:
           setupMesh(child, randomHexColor());
