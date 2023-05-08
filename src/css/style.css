@@ -154,17 +154,22 @@ main {
 .swatch__header {
   display: flex;
   justify-content: space-between;
+  align-items: center;
+  margin-bottom: 5px;
 }
 .swatch__header p {
   margin: 0;
 }
 .swatch__header .close {
   display: flex;
+  justify-content: center;
+  align-items: center;
   background-color: transparent;
   border: none;
   cursor: pointer;
   width: 30px;
   height: 30px;
+  font-size: 16px;
   color: #fff;
   padding: 5px;
   line-height: 7px;
@@ -174,16 +179,14 @@ main {
 }
 
 .swatch__wrapper {
-  display: flex;
-  flex-direction: column;
-  visibility: hidden;
   position: absolute;
   top: 0;
   left: 110%;
-  z-index: 1;
+  z-index: 10;
   min-width: 150px;
   padding: 5px;
   border-radius: 5px;
+  border-style: none;
   background-color: #36507e;
 }
 
@@ -198,9 +201,8 @@ main {
   margin: 1px;
 }
 
-.show {
-  visibility: visible;
-  animation: fadeIn 1s;
+dialog[open] {
+  animation: fadeIn 0.5s;
 }
 
 @keyframes fadeIn {

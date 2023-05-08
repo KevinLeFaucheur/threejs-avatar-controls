@@ -5,15 +5,15 @@ export const swatchMeshColors = (mesh) => {
 
   const fragment = document.createRange().createContextualFragment(
     ` 
-    <div class="swatch__wrapper swatch__wrapper--${mesh.name}">
+    <dialog class="swatch__wrapper swatch__wrapper--${mesh.name}">
       <div class="swatch__header">
         <p>Colors:</p>
-        <button class="far fa-regular fa-x close">x</button>
+        <button class="fa fa-regular fa-x close" formnovalidate></button>
       </div>
       <div class="swatch__container swatch__container--${mesh.name}">
         ${skinColors.map(color => `<div class="swatch__color" style="background-color: ${color}" id=${mesh.name}>&nbsp;</div>` ).join('')}
       </div>
-    </div>
+    </dialog>
     `
   );
 
@@ -21,12 +21,11 @@ export const swatchMeshColors = (mesh) => {
     .querySelectorAll(`.swatch__wrapper--${mesh.name} .swatch__color`)
     .forEach(element => element.onclick = () => {
       const color = window.getComputedStyle(element).getPropertyValue("background-color");
-      console.log(element);
       changeMeshColor(mesh, color);
       document.getElementById(`${mesh.name}--color`).style.backgroundColor = color;
     });
     
-  fragment.querySelector('.close').onclick = () => document.querySelector(`.swatch__wrapper--${mesh.name}`).classList.toggle('show');
+  fragment.querySelector('.close').onclick = () => document.querySelector(`.swatch__wrapper--${mesh.name}`).close();
 
   // skinColors.forEach(color => {
   //   fragment.querySelector('.swatch__container').append(`<div class="swatch__color" style="background-color: ${color}" id=${mesh.name}>&nbsp;</div>`);
