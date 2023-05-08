@@ -24,7 +24,7 @@ export const mapController = (map, group) => {
 
       let offset = index === 0 ? -1 : 1;
       let newIndex = (mapIndex + offset);
-      mapIndex = newIndex < 0 ? maps.length-1 : newIndex >= maps.length ? 0 : newIndex;;
+      mapIndex = newIndex < 0 ? maps.length-1 : newIndex >= maps.length ? 0 : newIndex;
       
       group.clear();
 

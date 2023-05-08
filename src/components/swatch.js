@@ -27,16 +27,5 @@ export const swatchMeshColors = (mesh) => {
     
   fragment.querySelector('.close').onclick = () => document.querySelector(`.swatch__wrapper--${mesh.name}`).close();
 
-  // skinColors.forEach(color => {
-  //   fragment.querySelector('.swatch__container').append(`<div class="swatch__color" style="background-color: ${color}" id=${mesh.name}>&nbsp;</div>`);
-  // });
-
-  // window.addEventListener('click', function(e){   
-  //   if (document.querySelector('.canvas__button').contains(e.target)) {
-  //   } else {
-  //     document.querySelector('.swatch__wrapper').classList.remove('show');
-  //   }
-  // });
-
   return fragment;
 }

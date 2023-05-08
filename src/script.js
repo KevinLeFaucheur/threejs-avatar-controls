@@ -6,10 +6,11 @@ import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
 import { lightController } from './components/map/lightController';
 import { avatarLoad } from './components/avatar/avatarLoader';
 import { avatars, maps } from './data/paths';
-import { changeAvatar } from './components/changeAvatar';
 import { mapController } from './components/map/mapController';
 import { mapLoad } from './components/map/mapLoader';
 import { load } from './utils/threejsUtils';
+import { avatarController } from './components/avatar/avatarController';
+import { avatarNames } from "./data/avatarConfig";
 
 // GUI
 const gui = new dat.GUI({ width: 340 });
@@ -40,8 +41,8 @@ characterLight.position.set(0, 0, 2);
 scene.add(characterLight);
 
 // Light GUI
-const lightsFolder = gui.addFolder('Lights');
-lightsFolder.add(light, 'intensity', 0, 10, 0.1);
+// const lightsFolder = gui.addFolder('Lights');
+// lightsFolder.add(light, 'intensity', 0, 10, 0.1);
 
 // Sun Mesh
 const sun = new THREE.Mesh(
@@ -91,10 +92,12 @@ scene.add(avatarGroup);
 load(avatars[0]).then((object) => { 
 	let { scene: avatar } = object;
 
-	avatar.name = 'JOHN';
+	console.log(avatarNames);
+
+	avatar.name = `${avatarNames[Math.floor(Math.random() * (avatarNames.length-1))]}`;
 	avatarLoad(avatar);
 	avatarGroup.add(avatar);
-	document.querySelector('.selectors').append(changeAvatar(avatarGroup, avatar, true));
+	document.querySelector('.selectors').append(avatarController(avatar, avatarGroup));
 });
 
 // Camera

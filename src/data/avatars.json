@@ -16,7 +16,8 @@
         "name": "Skin"
       },
       { 
-        "name": "Base"
+        "name": "Base",
+        "color": "#FFF"
       },
       { 
         "name": "Iris"
