@@ -68,7 +68,6 @@ export const avatarController = (avatar, group) => {
         group.add(avatar);
 
         document.querySelector('.customization__controller--name').innerHTML = avatar.name;
-        document.querySelector('.customization--avatar').append(avatarController(avatar, group));
       });
     }
   });

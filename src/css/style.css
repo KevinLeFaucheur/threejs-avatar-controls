@@ -123,7 +123,7 @@ main {
   justify-content: center;
   height: 20%;
 }
-.selectors--avatar {
+.selectors #customization__controller--avatar {
   display: flex;
   justify-content: space-between;
   margin: 10px 0;
@@ -134,7 +134,7 @@ main {
   font-weight: 500;
   background-color: #36507e;
 }
-.selectors--avatar button {
+.selectors #customization__controller--avatar button {
   height: 50px;
   width: 50px;
   border-style: none;
