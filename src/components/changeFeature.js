@@ -1,8 +1,6 @@
 import { changeAvatarFeature, changeMeshColor } from "../handlers/changeMeshColor";
 
 export const changeFeature = (mesh) => {
-  if(mesh.name.includes('Empty')) mesh.name = 'None';
-
   const fragment = document.createRange().createContextualFragment(
     ` 
     <div class="customization__controller" id=${mesh.parent.name}>

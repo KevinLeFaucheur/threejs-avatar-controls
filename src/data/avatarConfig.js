@@ -12,12 +12,18 @@ export const skinColors = [
   "#77411D", "#50270C", "#2E1200", "#DD5F5F"
 ];
 
+export const irisColors = [
+  "#b46b3c", "#ac5b27", "#794044", "#092c86", 
+  "#2acaea", "#20daa5", "#245923", "#b0e0e6",
+  "#c6e2ff", "#f0f8ff", "#1c1c1c", "#666666"
+];
+
 export const avatarConfig = {
   name: () => avatarNames[Math.floor(Math.random()*avatarNames.length)],
   colors: {
     skin: () => skinColors[Math.floor(Math.random()*skinColors.length)],
     eye: '#FFF',
-    iris: () => randomHexColor(),
+    iris: () => irisColors[Math.floor(Math.random()*skinColors.length)],
     brows: () => randomHexColor(),
   }
 };

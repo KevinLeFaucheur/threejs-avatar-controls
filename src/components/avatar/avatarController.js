@@ -3,7 +3,6 @@ import { load } from "../../utils/threejsUtils";
 import { changeColor } from "../changeColor";
 import { changeFeature } from "../changeFeature";
 import { avatarLoad } from "./avatarLoader";
-import { avatarNames } from "../../data/avatarConfig";
 
 let avatarIndex = 0;
 
@@ -28,7 +27,7 @@ const updateAvatarController = (avatar) => {
         break;
       case 'FEATURES':
         group.children.forEach(subgroup => {
-          const feature = subgroup.children.find(mesh => mesh.name.includes('Empty'));
+          const feature = subgroup.children.find(mesh => mesh.name.includes('None'));
           document.querySelector('.customization--features').append(changeFeature(feature));
         });
         break;
@@ -67,6 +66,7 @@ export const avatarController = (avatar, group) => {
         group.add(avatar);
 
         document.querySelector('.customization__controller--name').innerHTML = avatar.name;
+        updateAvatarController(avatar);
       });
     }
   });

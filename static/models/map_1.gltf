@@ -163,7 +163,7 @@
         },
         {
             "mesh" : 26,
-            "name" : "_GRASS"
+            "name" : "_GROUND"
         }
     ],
     "meshes" : [

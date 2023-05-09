@@ -37,11 +37,11 @@
             "name" : "AVATAR"
         },
         {
-            "name" : "EmptyEyes"
-        },
-        {
             "mesh" : 3,
             "name" : "Glasses"
+        },
+        {
+            "name" : "NoneEyes"
         },
         {
             "children" : [
@@ -55,11 +55,11 @@
             "name" : "Cap"
         },
         {
-            "name" : "EmptyHeadtop"
-        },
-        {
             "mesh" : 5,
             "name" : "Hat"
+        },
+        {
+            "name" : "NoneHeadtop"
         },
         {
             "children" : [
@@ -70,11 +70,11 @@
             "name" : "_HEADTOP"
         },
         {
-            "name" : "EmptyMouth"
-        },
-        {
             "mesh" : 6,
             "name" : "Mustache"
+        },
+        {
+            "name" : "NoneMouth"
         },
         {
             "children" : [
@@ -88,7 +88,7 @@
             "name" : "Bow"
         },
         {
-            "name" : "EmptyNeck"
+            "name" : "NoneNeck"
         },
         {
             "mesh" : 8,
