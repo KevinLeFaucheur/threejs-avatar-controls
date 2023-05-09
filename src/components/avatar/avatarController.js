@@ -25,6 +25,11 @@ const updateAvatarController = (avatar) => {
           }
         });
         break;
+      case 'HAIR':
+        group.children.forEach(mesh => {
+          document.querySelector('.customization--avatar').append(changeColor(mesh));
+        })
+        break;
       case 'FEATURES':
         group.children.forEach(subgroup => {
           const feature = subgroup.children.find(mesh => mesh.name.includes('None'));

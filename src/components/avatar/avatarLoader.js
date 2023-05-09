@@ -67,6 +67,7 @@ export const avatarLoad = (avatar) => {
           setupMesh(child, newAvatarConfig.colors.iris);
           break;
         case 'Brows':
+        case 'Style1':
           setupMesh(child, newAvatarConfig.colors.brows);
           break;
         default:
