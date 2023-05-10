@@ -1,44 +1,29 @@
-import { changeAvatarFeature, changeMeshColor } from "../utils/threejsUtils";
+import { changeAvatarFeature } from "../utils/threejsUtils";
+import { meshColorController } from "./meshColorController";
 
-export const selectFeatureController = (mesh) => {
+export const selectFeatureController = (mesh, swatchColors = null) => {
 
-  
-  const fragment = document.createRange().createContextualFragment(
-    ` 
-    <div class="customization__controller" id=${mesh.parent.name}>
+  const fragment = meshColorController(mesh, swatchColors);
 
-      <button class="fa fa-angle-left"></button>
+  const leftButton = 
+    document
+      .createRange()
+      .createContextualFragment(`<button value=${-1} class="fa fa-angle-left"></button>`);
+  const rightButton = 
+    document
+      .createRange()
+      .createContextualFragment(`<button value=${1} class="fa fa-angle-right"></button>`);
+    
+  leftButton.querySelector('button').onclick = () => onChangeAvatarFeature(mesh, -1);
+  rightButton.querySelector('button').onclick = () => onChangeAvatarFeature(mesh, 1);
 
-      ${!mesh.name.includes('None') 
-      // 
-      ? 
-      `<div class="customization__controller--color">
-        <label for=${mesh.name}>${mesh.name} Color: </label>
-        <input type="color" id=${mesh.name}" name=${mesh.name} value=${'#'+mesh?.material.color.getHexString()}>
-      </div>` 
-      // 
-      : 
-      `<p class='avatar--name'>${mesh.name}</p>`}
-      
-      <button class="fa fa-angle-right"></button>
-    </div>
-    `
-  );
+  fragment.getElementById(`${mesh.name}--controller`).prepend(leftButton);
+  fragment.getElementById(`${mesh.name}--controller`).append(rightButton);
   
   const onChangeAvatarFeature = (mesh, index) => {
     const newMesh = changeAvatarFeature(mesh, index);
-    document.getElementById(mesh.parent.name).replaceWith(selectFeatureController(newMesh));
-  }
- 
-  if(!mesh.name.includes('None')) {
-    fragment
-      .querySelector('input')
-      .onchange = () => changeMeshColor(mesh, event.target.value);
-  }
-    
-  fragment
-    .querySelectorAll('button')
-    .forEach((button, index) => button.onclick = () => onChangeAvatarFeature(mesh, index));
+    document.getElementById(`${mesh.name}--controller`).replaceWith(selectFeatureController(newMesh));
+  };
 
   return fragment;
 };

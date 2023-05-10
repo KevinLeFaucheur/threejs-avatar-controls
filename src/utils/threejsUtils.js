@@ -38,3 +38,7 @@ export const changeAvatarFeature = (mesh, offset) => {
 export const toggleMeshVisible = (mesh) => {
   mesh.visible = !mesh.visible;
 };
+
+export const getMeshColorHex = (mesh) => {
+  return '#'+mesh?.material.color.getHexString();
+};
