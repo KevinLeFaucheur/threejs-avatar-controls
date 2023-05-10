@@ -1,7 +1,7 @@
 import { avatars } from "../../data/paths";
 import { load } from "../../utils/threejsUtils";
 import { meshColorController } from "../meshColorController";
-import { changeFeature } from "../changeFeature";
+import { selectFeatureController } from "../selectFeatureController";
 import { avatarLoad } from "./avatarLoader";
 import { skinColors } from "../../data/avatarConfig";
 
@@ -34,7 +34,7 @@ const updateAvatarController = (avatar) => {
       case 'FEATURES':
         group.children.forEach(subgroup => {
           const feature = subgroup.children.find(mesh => mesh.name.includes('None'));
-          document.querySelector('.customization--features').append(changeFeature(feature));
+          document.querySelector('.customization--features').append(selectFeatureController(feature));
         });
         break;
     }
