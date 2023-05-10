@@ -1,7 +1,7 @@
-import * as THREE from 'three';
+import { Color } from "three";
 
 export const changeMeshColor = (mesh, hexColor) => {
-  mesh?.material?.color.set(new THREE.Color(hexColor));
+  mesh?.material?.color.set(new Color(hexColor));
 };
 
 export const changeAvatarFeature = (mesh, offset) => {

@@ -11,6 +11,7 @@ import { mapLoad } from './components/map/mapLoader';
 import { load } from './utils/threejsUtils';
 import { avatarController } from './components/avatar/avatarController';
 import { avatarNames } from "./data/avatarConfig";
+import { saveAsImageButton } from './utils/saveAsImage';
 
 // GUI
 const gui = new dat.GUI({ width: 340 });
@@ -70,34 +71,6 @@ document.querySelector('.customization--map').append(lightController(sky));
 // const cameraHelper = new THREE.CameraHelper(directionalLight.shadow.camera);
 // scene.add(cameraHelper);
 
-// Maps Group and load first map
-export const mapGroup = new THREE.Group();
-mapGroup.name = 'Maps';
-scene.add(mapGroup);
-
-load(maps[0]).then((object) => { 
-	let { scene: map } = object;
-
-	map.name = 'Map 1';
-	mapLoad(map);
-	mapGroup.add(map);
-	document.querySelector('.customization--map').append(mapController(map, mapGroup));
-});
-
-// Avatar Group and load first avatar
-export const avatarGroup = new THREE.Group();
-avatarGroup.name = 'Avatars';
-scene.add(avatarGroup);
-
-load(avatars[0]).then((object) => { 
-	let { scene: avatar } = object;
-
-	avatar.name = `${avatarNames[Math.floor(Math.random() * (avatarNames.length-1))]}`;
-	avatarLoad(avatar);
-	avatarGroup.add(avatar);
-	document.querySelector('.selectors').append(avatarController(avatar, avatarGroup));
-});
-
 // Camera
 // const sizes = {
 //     width: window.innerWidth / 1.5,
@@ -132,11 +105,43 @@ controls.target.set(0, 1.3, -1);
 controls.update();
 
 // Render
-const renderer = new THREE.WebGLRenderer({ canvas: canvas });
+const renderer = new THREE.WebGLRenderer({ 
+	canvas: canvas, 
+	preserveDrawingBuffer: true 
+});
 renderer.setSize(sizes.width, sizes.height);
 renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
 renderer.shadowMap.enabled = true;
 renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+
+// Maps Group and load first map
+export const mapGroup = new THREE.Group();
+mapGroup.name = 'Maps';
+scene.add(mapGroup);
+
+load(maps[0]).then((object) => { 
+	let { scene: map } = object;
+
+	map.name = 'Map 1';
+	mapLoad(map);
+	mapGroup.add(map);
+	document.querySelector('.customization--map').append(mapController(map, mapGroup));
+});
+
+// Avatar Group and load first avatar
+export const avatarGroup = new THREE.Group();
+avatarGroup.name = 'Avatars';
+scene.add(avatarGroup);
+
+load(avatars[0]).then((object) => { 
+	let { scene: avatar } = object;
+
+	avatar.name = `${avatarNames[Math.floor(Math.random() * (avatarNames.length-1))]}`;
+	avatarLoad(avatar);
+	avatarGroup.add(avatar);
+	document.querySelector('.selectors').append(avatarController(avatar, avatarGroup));
+	document.querySelector('.selectors').append(saveAsImageButton(renderer));
+});
 
 // Tick
 const clock = new THREE.Clock();
