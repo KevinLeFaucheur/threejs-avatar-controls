@@ -1,4 +1,4 @@
-import { changeAvatarFeature, changeMeshColor } from "../handlers/changeMeshColor";
+import { changeAvatarFeature, changeMeshColor } from "../utils/threejsUtils";
 
 export const changeFeature = (mesh) => {
   const fragment = document.createRange().createContextualFragment(

@@ -1,8 +1,9 @@
 import { avatars } from "../../data/paths";
 import { load } from "../../utils/threejsUtils";
-import { changeColor } from "../changeColor";
+import { meshColorController } from "../meshColorController";
 import { changeFeature } from "../changeFeature";
 import { avatarLoad } from "./avatarLoader";
+import { skinColors } from "../../data/avatarConfig";
 
 let avatarIndex = 0;
 
@@ -18,16 +19,16 @@ const updateAvatarController = (avatar) => {
       case 'EYES':
         group.children.forEach(mesh => {
           if(mesh.name.includes('skin')) {
-            document.querySelector('.customization--avatar').append(changeColor(mesh, true));
+            document.querySelector('.customization--avatar').append(meshColorController(mesh, skinColors));
           }
           else if(mesh.name !== 'Base') {
-            document.querySelector('.customization--avatar').append(changeColor(mesh));
+            document.querySelector('.customization--avatar').append(meshColorController(mesh));
           }
         });
         break;
       case 'HAIR':
         group.children.forEach(mesh => {
-          document.querySelector('.customization--avatar').append(changeColor(mesh));
+          document.querySelector('.customization--avatar').append(meshColorController(mesh));
         })
         break;
       case 'FEATURES':

@@ -1,7 +1,6 @@
-import { changeMeshColor } from "../handlers/changeMeshColor";
-import { skinColors } from "../data/avatarConfig";
+import { changeMeshColor } from "../utils/threejsUtils";
 
-export const swatchMeshColors = (mesh) => {
+export const swatchMeshColors = (mesh, colors) => {
 
   const fragment = document.createRange().createContextualFragment(
     ` 
@@ -11,7 +10,7 @@ export const swatchMeshColors = (mesh) => {
         <button class="fa fa-regular fa-x close" formnovalidate></button>
       </div>
       <div class="swatch__container swatch__container--${mesh.name}">
-        ${skinColors.map(color => `<div class="swatch__color" style="background-color: ${color}" id=${mesh.name}>&nbsp;</div>` ).join('')}
+        ${colors.map(color => `<div class="swatch__color" style="background-color: ${color}" id=${mesh.name}>&nbsp;</div>` ).join('')}
       </div>
     </dialog>
     `
