@@ -9,9 +9,9 @@ import { avatars, maps } from './data/paths';
 import { mapController } from './components/map/mapController';
 import { mapLoad } from './components/map/mapLoader';
 import { load } from './utils/threejsUtils';
-import { avatarController } from './components/avatar/avatarController';
 import { avatarNames } from "./data/avatarConfig";
 import { saveAsImageButton } from './utils/saveAsImage';
+import { selectAvatarController } from './components/avatar/selectAvatarController';
 
 // GUI
 const gui = new dat.GUI({ width: 340 });
@@ -136,10 +136,11 @@ scene.add(avatarGroup);
 load(avatars[0]).then((object) => { 
 	let { scene: avatar } = object;
 
-	avatar.name = `${avatarNames[Math.floor(Math.random() * (avatarNames.length-1))]}`;
+	avatarGroup.clear();
 	avatarLoad(avatar);
 	avatarGroup.add(avatar);
-	document.querySelector('.selectors').append(avatarController(avatar, avatarGroup));
+	
+	document.querySelector('.selectors').append(selectAvatarController(avatar, avatarGroup));
 	document.querySelector('.selectors').append(saveAsImageButton(renderer));
 });
 

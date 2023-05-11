@@ -1,6 +1,12 @@
 import { changeMeshColor } from "../utils/threejsUtils";
 
-export const swatchMeshColors = (mesh, colors) => {
+export const swatchMeshColors = (newMesh, colors) => {
+  let meshes = null;
+  let mesh;
+  if(Array.isArray(newMesh)) {
+    mesh = newMesh[0];
+    meshes = newMesh;
+  } else mesh = newMesh;
 
   const fragment = document.createRange().createContextualFragment(
     ` 
@@ -20,7 +26,11 @@ export const swatchMeshColors = (mesh, colors) => {
     .querySelectorAll(`.swatch__wrapper--${mesh.name} .swatch__color`)
     .forEach(element => element.onclick = () => {
       const color = window.getComputedStyle(element).getPropertyValue("background-color");
-      changeMeshColor(mesh, color);
+      if(meshes) {
+        meshes.forEach(mesh => {
+          changeMeshColor(mesh, color);
+        })
+      } else changeMeshColor(mesh, color);
       document.getElementById(`${mesh.name}--color`).style.backgroundColor = color;
     });
     

@@ -130,14 +130,12 @@ main {
   }
 }
 
-
-
 .selectors {
   display: flex;
   justify-content: space-between;
   height: 20%;
 
-  #customization__controller--avatar {
+  .customization__controller {
     display: flex;
     justify-content: space-between;
     margin: 10px 0;
