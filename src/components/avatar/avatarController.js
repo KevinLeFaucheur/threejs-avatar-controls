@@ -1,6 +1,6 @@
 import { meshColorController } from "../meshColorController";
 import { selectFeatureController } from "../selectFeatureController";
-import { skinColors } from "../../data/avatarConfig";
+import { skinColors, hairColors } from "../../data/avatarConfig";
 
 export const updateAvatarController = (avatar) => {
   document.querySelector('.customization--avatar').innerHTML = '';
@@ -26,7 +26,7 @@ export const updateAvatarController = (avatar) => {
         });
         break;
       case 'HAIR':
-        document.querySelector('.customization--avatar').append(meshColorController(group.children));
+        document.querySelector('.customization--avatar').append(meshColorController(group.children, hairColors));
         break;
       case 'FEATURES':
         group.children.forEach(subgroup => {
